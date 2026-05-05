@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "Elyra",
+    "slug": "elyra",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#7C3AED"
+    },
+    "ios": {
+      "bundleIdentifier": "app.elyra.mobile"
+    },
+    "android": {
+      "package": "app.elyra.mobile"
+    }
+  }
+}

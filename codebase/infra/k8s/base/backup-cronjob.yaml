@@ -1,0 +1,71 @@
+# ── Nightly Database Backup CronJob ──────────────────────────────────────────
+# Runs at 02:00 UTC every day
+# Dumps PostgreSQL + MongoDB and uploads encrypted archives to S3
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nightly-backup
+  namespace: elyra
+spec:
+  schedule: "0 2 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: backup
+              image: ghcr.io/elyra/backend:latest
+              command:
+                - /bin/bash
+                - -c
+                - |
+                  set -euo pipefail
+                  DATE=$(date +%Y%m%d_%H%M%S)
+                  BUCKET="${S3_BACKUP_BUCKET:-elyra-backups}"
+
+                  echo "[backup] PostgreSQL dump..."
+                  PGPASSWORD="${POSTGRES_PASSWORD}" pg_dump \
+                    -h postgres-service \
+                    -U elyra_user \
+                    -d elyra_db \
+                    -F c \
+                    -f /tmp/pg_backup_${DATE}.dump
+
+                  echo "[backup] Uploading PostgreSQL dump to S3..."
+                  aws s3 cp /tmp/pg_backup_${DATE}.dump \
+                    s3://${BUCKET}/postgres/pg_backup_${DATE}.dump \
+                    --sse aws:kms
+
+                  echo "[backup] MongoDB dump..."
+                  mongodump \
+                    --uri="${MONGODB_URL}" \
+                    --out=/tmp/mongo_backup_${DATE}/
+
+                  tar -czf /tmp/mongo_backup_${DATE}.tar.gz \
+                    -C /tmp mongo_backup_${DATE}/
+
+                  echo "[backup] Uploading MongoDB dump to S3..."
+                  aws s3 cp /tmp/mongo_backup_${DATE}.tar.gz \
+                    s3://${BUCKET}/mongodb/mongo_backup_${DATE}.tar.gz \
+                    --sse aws:kms
+
+                  # Cleanup local files
+                  rm -rf /tmp/pg_backup_* /tmp/mongo_backup_*
+
+                  echo "[backup] ✅ Backup complete: ${DATE}"
+              env:
+                - name: AWS_REGION
+                  valueFrom:
+                    configMapKeyRef:
+                      name: elyra-config
+                      key: AWS_REGION
+              envFrom:
+                - secretRef:
+                    name: elyra-secrets
+              resources:
+                requests: { cpu: "100m", memory: "256Mi" }
+                limits:   { cpu: "500m", memory: "512Mi" }

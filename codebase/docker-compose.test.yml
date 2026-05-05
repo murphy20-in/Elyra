@@ -1,0 +1,59 @@
+version: '3.9'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Elyra — Isolated Test Stack
+# Used by pytest (Phase 9) with alternate ports to avoid conflicts.
+# Usage:
+#   docker compose -f docker-compose.test.yml up -d
+#   docker compose -f docker-compose.test.yml down -v   (wipe between runs)
+# ─────────────────────────────────────────────────────────────────────────────
+
+services:
+
+  postgres-test:
+    image: pgvector/pgvector:pg16
+    container_name: elyra_test_postgres
+    environment:
+      POSTGRES_DB:       elyra_test
+      POSTGRES_USER:     elyra_user
+      POSTGRES_PASSWORD: elyra_test_pass
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./app/infra/scripts/init-db.sh:/docker-entrypoint-initdb.d/10-init-db.sh:ro
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U elyra_user -d elyra_test"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: "no"
+
+  redis-test:
+    image: redis:7-alpine
+    container_name: elyra_test_redis
+    ports:
+      - "6380:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: "no"
+
+  mongodb-test:
+    image: mongo:7
+    container_name: elyra_test_mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: elyra_user
+      MONGO_INITDB_ROOT_PASSWORD: elyra_test_pass
+      MONGO_INITDB_DATABASE:      elyra_test_chat
+    ports:
+      - "27018:27017"
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: "no"

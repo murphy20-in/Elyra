@@ -1,0 +1,275 @@
+version: '3.9'
+
+services:
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: elyra_postgres
+    environment:
+      POSTGRES_DB:       elyra_db
+      POSTGRES_USER:     elyra_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-elyra_dev_pass}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./app/infra/scripts/init-db.sh:/docker-entrypoint-initdb.d/10-init-db.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U elyra_user -d elyra_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: elyra_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: >
+      redis-server
+      --appendonly yes
+      --maxmemory 512mb
+      --maxmemory-policy allkeys-lru
+      --save 3600 1
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo:7
+    container_name: elyra_mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: elyra_user
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-elyra_dev_pass}
+      MONGO_INITDB_DATABASE:      elyra_chat
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  minio:
+    image: minio/minio:latest
+    container_name: elyra_minio
+    command: server /data --console-address ":9090"
+    environment:
+      MINIO_ROOT_USER:     ${S3_ACCESS_KEY:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${S3_SECRET_KEY:-minioadmin}
+    ports:
+      - "9000:9000"
+      - "9090:9090"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-fs", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  minio-init:
+    image: minio/mc:latest
+    container_name: elyra_minio_init
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+        sleep 3;
+        mc alias set local http://minio:9000 ${S3_ACCESS_KEY:-minioadmin} ${S3_SECRET_KEY:-minioadmin};
+        mc mb -p local/${S3_BUCKET:-elyra-uploads} || true;
+        mc mb -p local/elyra-backups || true;
+        mc anonymous set download local/${S3_BUCKET:-elyra-uploads};
+        echo 'MinIO buckets ready.';
+        exit 0;
+      "
+    restart: "no"
+
+  backend:
+    build:
+      context: ./app/backend
+      dockerfile: Dockerfile
+    container_name: elyra_backend
+    env_file: .env
+    environment:
+      DATABASE_URL:  "postgresql+asyncpg://elyra_user:${POSTGRES_PASSWORD:-elyra_dev_pass}@postgres:5432/elyra_db"
+      MONGODB_URL:   "mongodb://elyra_user:${MONGO_PASSWORD:-elyra_dev_pass}@mongodb:27017"
+      REDIS_URL:     "redis://redis:6379/0"
+      S3_ENDPOINT_URL: "http://minio:9000"
+      AWS_ACCESS_KEY_ID: "${S3_ACCESS_KEY:-minioadmin}"
+      AWS_SECRET_ACCESS_KEY: "${S3_SECRET_KEY:-minioadmin}"
+      EMBEDDING_SERVICE_URL:    "http://embedding-service:9001"
+      MODERATION_SERVICE_URL:   "http://moderation-service:9002"
+      IMAGE_SERVICE_URL:        "http://image-service:9003"
+      FAKE_PROFILE_SERVICE_URL: "http://fake-profile-service:9004"
+      APP_ENV: "development"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app/backend:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    restart: unless-stopped
+
+  celery-worker:
+    build:
+      context: ./app/backend
+      dockerfile: Dockerfile
+    container_name: elyra_celery_worker
+    env_file: .env
+    environment:
+      DATABASE_URL: "postgresql+asyncpg://elyra_user:${POSTGRES_PASSWORD:-elyra_dev_pass}@postgres:5432/elyra_db"
+      MONGODB_URL:  "mongodb://elyra_user:${MONGO_PASSWORD:-elyra_dev_pass}@mongodb:27017"
+      REDIS_URL:    "redis://redis:6379/0"
+    volumes:
+      - ./app/backend:/app
+    depends_on:
+      - backend
+      - redis
+      - postgres
+    command: celery -A workers.celery_app worker --loglevel=info --concurrency=2
+    restart: unless-stopped
+
+  celery-beat:
+    build:
+      context: ./app/backend
+      dockerfile: Dockerfile
+    container_name: elyra_celery_beat
+    env_file: .env
+    environment:
+      DATABASE_URL: "postgresql+asyncpg://elyra_user:${POSTGRES_PASSWORD:-elyra_dev_pass}@postgres:5432/elyra_db"
+      REDIS_URL:    "redis://redis:6379/0"
+    volumes:
+      - ./app/backend:/app
+    depends_on:
+      - backend
+      - redis
+    command: celery -A workers.celery_app beat --loglevel=info
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./app/frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: "http://localhost/api/v1"
+        NEXT_PUBLIC_WS_URL:  "http://localhost"
+    container_name: elyra_frontend
+    environment:
+      NEXT_PUBLIC_API_URL: "http://localhost/api/v1"
+      NEXT_PUBLIC_WS_URL:  "http://localhost"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./app/frontend:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - backend
+    command: npm run dev
+    restart: unless-stopped
+
+  embedding-service:
+    build:
+      context: ./app/ai-services/embedding-service
+      dockerfile: Dockerfile
+    container_name: elyra_embedding
+    ports:
+      - "9001:9001"
+    restart: unless-stopped
+
+  moderation-service:
+    build:
+      context: ./app/ai-services/moderation-service
+      dockerfile: Dockerfile
+    container_name: elyra_moderation
+    ports:
+      - "9002:9002"
+    restart: unless-stopped
+
+  image-service:
+    build:
+      context: ./app/ai-services/image-service
+      dockerfile: Dockerfile
+    container_name: elyra_image_svc
+    ports:
+      - "9003:9003"
+    restart: unless-stopped
+
+  fake-profile-service:
+    build:
+      context: ./app/ai-services/fake-profile-service
+      dockerfile: Dockerfile
+    container_name: elyra_fake_profile
+    ports:
+      - "9004:9004"
+    restart: unless-stopped
+
+  nginx:
+    build:
+      context: ./app/infra/nginx
+      dockerfile: Dockerfile
+    container_name: elyra_nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - frontend
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: elyra_prometheus
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./app/infra/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    profiles: [observability]
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: elyra_grafana
+    ports:
+      - "3001:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER:     admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_AUTH_ANONYMOUS_ENABLED:  "true"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./app/infra/monitoring/grafana-dashboard.json:/etc/grafana/provisioning/dashboards/elyra.json:ro
+    depends_on:
+      - prometheus
+    profiles: [observability]
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  mongo_data:
+  minio_data:
+  grafana_data:
+
+networks:
+  default:
+    name: elyra_network

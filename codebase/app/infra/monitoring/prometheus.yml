@@ -1,0 +1,45 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+  external_labels:
+    environment: 'development'
+    project: 'elyra'
+
+scrape_configs:
+  - job_name: 'elyra_backend'
+    static_configs:
+      - targets: ['backend:8000']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'backend'
+
+  - job_name: 'embedding_service'
+    static_configs:
+      - targets: ['embedding-service:9001']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'moderation_service'
+    static_configs:
+      - targets: ['moderation-service:9002']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'image_service'
+    static_configs:
+      - targets: ['image-service:9003']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'fake_profile_service'
+    static_configs:
+      - targets: ['fake-profile-service:9004']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']

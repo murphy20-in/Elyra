@@ -1,0 +1,74 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv
+venv/
+ENV/
+env/
+*.egg-info/
+
+# Node
+node_modules/
+.npm
+.eslintcache
+.next/
+out/
+build/
+dist/
+.rncache/
+*.tsbuildinfo
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# Environment
+.env
+.env.local
+.env.*.local
+*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs
+*.log
+logs/
+
+# Docker
+volumes/
+*.sock
+
+# Misc
+*.bak
+*.tmp

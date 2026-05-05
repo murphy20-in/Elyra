@@ -1,0 +1,201 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# EMBEDDING SERVICE (port 9001)
+# ─────────────────────────────────────────────────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: embedding-service
+  namespace: elyra
+  labels:
+    app: embedding-service
+    tier: ai
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: embedding-service
+  template:
+    metadata:
+      labels:
+        app: embedding-service
+        tier: ai
+    spec:
+      containers:
+        - name: embedding-service
+          image: ghcr.io/elyra/embedding-service:latest
+          ports:
+            - containerPort: 9001
+          envFrom:
+            - configMapRef:
+                name: elyra-config
+          requests:
+              cpu: "200m"
+              memory: "512Mi"
+            limits:
+              cpu: "1000m"
+              memory: "2Gi"
+          livenessProbe:
+            httpGet: { path: /health, port: 9001 }
+            initialDelaySeconds: 60
+            periodSeconds: 30
+          readinessProbe:
+            httpGet: { path: /health, port: 9001 }
+            initialDelaySeconds: 60
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: embedding-service
+  namespace: elyra
+spec:
+  selector:  { app: embedding-service }
+  ports: [{ port: 9001, targetPort: 9001 }]
+---
+# ─────────────────────────────────────────────────────────────────────────────
+# MODERATION SERVICE (port 9002)
+# ─────────────────────────────────────────────────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moderation-service
+  namespace: elyra
+  labels:
+    app: moderation-service
+    tier: ai
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: moderation-service
+  template:
+    metadata:
+      labels:
+        app: moderation-service
+        tier: ai
+    spec:
+      containers:
+        - name: moderation-service
+          image: ghcr.io/elyra/moderation-service:latest
+          ports:
+            - containerPort: 9002
+          envFrom:
+            - configMapRef:
+                name: elyra-config
+          requests:
+              cpu: "200m"
+              memory: "512Mi"
+            limits:
+              cpu: "1000m"
+              memory: "2Gi"
+          livenessProbe:
+            httpGet: { path: /health, port: 9002 }
+            initialDelaySeconds: 60
+            periodSeconds: 30
+          readinessProbe:
+            httpGet: { path: /health, port: 9002 }
+            initialDelaySeconds: 60
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: moderation-service
+  namespace: elyra
+spec:
+  selector:  { app: moderation-service }
+  ports: [{ port: 9002, targetPort: 9002 }]
+---
+# ─────────────────────────────────────────────────────────────────────────────
+# IMAGE SERVICE (port 9003)
+# ───────────────────────���─────────────────────────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-service
+  namespace: elyra
+  labels:
+    app: image-service
+    tier: ai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: image-service
+  template:
+    metadata:
+      labels:
+        app: image-service
+        tier: ai
+    spec:
+      containers:
+        - name: image-service
+          image: ghcr.io/elyra/image-service:latest
+          ports:
+            - containerPort: 9003
+          envFrom:
+            - configMapRef:
+                name: elyra-config
+          resources:
+            requests: { cpu: "200m", memory: "256Mi" }
+            limits:   { cpu: "500m", memory: "1Gi" }
+          livenessProbe:
+            httpGet: { path: /health, port: 9003 }
+            initialDelaySeconds: 30
+            periodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: image-service
+  namespace: elyra
+spec:
+  selector:  { app: image-service }
+  ports: [{ port: 9003, targetPort: 9003 }]
+---
+# ─────────────────────────────────────────────────────────────────────────────
+# FAKE PROFILE SERVICE (port 9004)
+# ─────────────────────────────────────────────────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fake-profile-service
+  namespace: elyra
+  labels:
+    app: fake-profile-service
+    tier: ai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fake-profile-service
+  template:
+    metadata:
+      labels:
+        app: fake-profile-service
+        tier: ai
+    spec:
+      containers:
+        - name: fake-profile-service
+          image: ghcr.io/elyra/fake-profile-service:latest
+          ports:
+            - containerPort: 9004
+          envFrom:
+            - configMapRef:
+                name: elyra-config
+          resources:
+            requests: { cpu: "100m", memory: "256Mi" }
+            limits:   { cpu: "500m", memory: "1Gi" }
+          livenessProbe:
+            httpGet: { path: /health, port: 9004 }
+            initialDelaySeconds: 30
+            periodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fake-profile-service
+  namespace: elyra
+spec:
+  selector:  { app: fake-profile-service }
+  ports: [{ port: 9004, targetPort: 9004 }]

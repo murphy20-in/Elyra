@@ -1,0 +1,27 @@
+{
+  "common": {
+    "getStarted": "Get Started",
+    "learnMore": "Learn More"
+  },
+  "hero": {
+    "tagline": "A safer way to connect, explore identity, and build real connections."
+  },
+  "features": {
+    "dualIdentity": {
+      "title": "Dual Identity",
+      "description": "Your Pehchaan Layer keeps you safe while you express your true self."
+    },
+    "safeDate": {
+      "title": "Safe Date",
+      "description": "Verified profiles and safety check-ins protect you every step of the way."
+    },
+    "aiMatching": {
+      "title": "AI-Powered Matching",
+      "description": "Smart recommendations help you find people who truly resonate with you."
+    }
+  },
+  "footer": {
+    "tagline": "Built for the community, by the community.",
+    "indiaFirst": "India-first, privacy-first"
+  }
+}

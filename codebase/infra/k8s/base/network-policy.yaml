@@ -1,0 +1,147 @@
+# ── DEFAULT DENY: block all ingress by default ─────────────────────────────────────
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: elyra
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+---
+# ── NGINX ingress controller → backend ───────────────────────────────────────
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-ingress-to-backend
+  namespace: elyra
+spec:
+  podSelector:
+    matchLabels:
+      app: backend
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx
+      ports:
+        - port: 8000
+---
+# ── NGINX ingress controller → frontend ──────────────────────────────────────
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-ingress-to-frontend
+  namespace: elyra
+spec:
+  podSelector:
+    matchLabels:
+      app: frontend
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx
+      ports:
+        - port: 3000
+---
+# ── backend + celery → PostgreSQL ────────────────────────────────────────────
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-backend-to-postgres
+  namespace: elyra
+spec:
+  podSelector:
+    matchLabels:
+      app: postgres
+  ingress:
+    - from:
+        - podSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values: [backend, celery-worker, celery-beat]
+      ports:
+        - port: 5432
+---
+# ── backend + celery → Redis ──────────────────────────────────────────────────
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-backend-to-redis
+  namespace: elyra
+spec:
+  podSelector:
+    matchLabels:
+      app: redis
+  ingress:
+    - from:
+        - podSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values: [backend, celery-worker, celery-beat]
+      ports:
+        - port: 6379
+---
+# ── backend + celery → MongoDB ────────────────────────────────────────────────
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-backend-to-mongodb
+  namespace: elyra
+spec:
+  podSelector:
+    matchLabels:
+      app: mongodb
+  ingress:
+    - from:
+        - podSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values: [backend, celery-worker]
+      ports:
+        - port: 27017
+---
+# ── backend → AI services (tier: ai) ─────────────────────────────────────────
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-backend-to-ai-services
+  namespace: elyra
+spec:
+  podSelector:
+    matchLabels:
+      tier: ai
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: backend
+      ports:
+        - port: 9001
+        - port: 9002
+        - port: 9003
+        - port: 9004
+---
+# ── Prometheus → all services (metrics scrape) ───────────────────────────────
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-prometheus-scrape
+  namespace: elyra
+spec:
+  podSelector: {}
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitoring
+      ports:
+        - port: 8000
+        - port: 9001
+        - port: 9002
+        - port: 9003
+        - port: 9004

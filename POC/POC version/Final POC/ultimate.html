@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elyra — Trust OS for Identity-Sensitive Connection</title>
+    <meta
+      name="description"
+      content="Investor-grade frontend POC for Elyra, the privacy-first, AI-enabled connection platform for India's LGBTQIA+ community."
+    />
+    <link rel="stylesheet" href="ultimate.css" />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="orb orb-coral" aria-hidden="true"></div>
+    <div class="orb orb-teal" aria-hidden="true"></div>
+    <div class="orb orb-gold" aria-hidden="true"></div>
+    <div class="orb orb-violet" aria-hidden="true"></div>
+
+    <header class="shell nav-shell">
+      <a class="brand" href="#top" aria-label="Elyra home">
+        <span class="brand-sigil">E</span>
+        <span class="brand-stack">
+          <strong>Elyra</strong>
+          <small>Pehchaan Layer · India-first</small>
+        </span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary investor navigation">
+        <a href="#problem">Problem</a>
+        <a href="#product">Product</a>
+        <a href="#demo">Demo</a>
+        <a href="#trust">Trust</a>
+        <a href="#business">Business</a>
+        <a href="#scale">Scale</a>
+      </nav>
+
+      <button class="nav-cta" type="button" data-open-auth>Investor sign-in</button>
+    </header>
+
+    <main id="top">
+      <!-- ========== HERO ========== -->
+      <section class="shell hero">
+        <div class="hero-copy reveal">
+          <div class="story-chip">
+            <span class="chip-dot"></span>
+            <span>Privacy-first LGBTQIA+ connections · India-first</span>
+          </div>
+          <h1>When identity is sensitive, trust becomes the product.</h1>
+          <p class="lede">
+            Elyra turns dual-identity privacy, intent-based matching, AI moderation,
+            and offline Safe Date workflows into one premium connection experience —
+            for the people swipe apps were never built for.
+          </p>
+
+          <div class="hero-actions">
+            <button class="primary-action" type="button" data-scroll="#demo">
+              Start interactive demo
+              <span class="action-arrow" aria-hidden="true">→</span>
+            </button>
+            <button class="secondary-action" type="button" data-scroll="#business">
+              View business model
+            </button>
+          </div>
+
+          <div class="proof-row" aria-label="Product proof points">
+            <div>
+              <strong data-counter="256" data-suffix="-bit">0</strong>
+              <span>AES private layer</span>
+            </div>
+            <div>
+              <strong data-counter="384" data-suffix="d">0</strong>
+              <span>intent embeddings</span>
+            </div>
+            <div>
+              <strong>₹499<small>+</small></strong>
+              <span>premium ARPU path</span>
+            </div>
+            <div>
+              <strong data-counter="91" data-suffix="">0</strong>
+              <span>trust score, live</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-stage reveal delay-1" aria-hidden="false">
+          <div class="phone">
+            <div class="phone-bezel"></div>
+            <div class="phone-screen">
+              <div class="phone-status">
+                <span class="status-pill live">
+                  <i></i> AI active
+                </span>
+                <span class="status-pill">Trust 91</span>
+              </div>
+
+              <div class="identity-stack">
+                <article class="floating-card public-layer">
+                  <span class="layer-label">Public profile</span>
+                  <div class="mini-person">
+                    <span class="avatar coral">MR</span>
+                    <div>
+                      <strong>Mira, 26</strong>
+                      <small>Queer · Mumbai · Exploring</small>
+                    </div>
+                  </div>
+                  <p>Visible: pronouns, intent, city only.</p>
+                </article>
+
+                <article class="floating-card private-layer">
+                  <span class="layer-label private">Private identity · AES-256</span>
+                  <div class="secret-line"></div>
+                  <div class="secret-line short"></div>
+                  <div class="secret-line"></div>
+                  <span class="reveal-tag">Reveal only with consent</span>
+                </article>
+              </div>
+
+              <div class="hero-match">
+                <div>
+                  <span>Intent match · Aarav, 28</span>
+                  <strong>92%</strong>
+                </div>
+                <div class="meter">
+                  <i style="width: 92%"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="floating-note note-1">
+            <span class="dot teal"></span> No-swipe discovery
+          </div>
+          <div class="floating-note note-2">
+            <span class="dot coral"></span> Safe Date ready
+          </div>
+          <div class="floating-note note-3">
+            <span class="dot gold"></span> Audit-logged reveals
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== PROBLEM ========== -->
+      <section class="shell problem-section" id="problem">
+        <div class="section-heading reveal">
+          <span class="kicker">01 · The problem</span>
+          <h2>Dating products assume everyone can be public.</h2>
+          <p class="lede">
+            For most LGBTQIA+ users in India, disclosure, harassment, fake profiles, and
+            unsafe offline meetings aren't edge cases — they're core adoption barriers
+            that no swipe-first product solves.
+          </p>
+        </div>
+
+        <div class="problem-grid reveal delay-1">
+          <article class="problem-card">
+            <span class="big-stat">73<small>%</small></span>
+            <h3>fear public exposure</h3>
+            <p>
+              Identity-sensitive users won't post photos, names, or location on
+              swipe apps that treat profiles as public-by-default.
+            </p>
+          </article>
+          <article class="problem-card">
+            <span class="big-stat">1 in 4</span>
+            <h3>encounter fake profiles</h3>
+            <p>
+              Without verification, moderation, and risk scoring, trust collapses
+              before the first conversation begins.
+            </p>
+          </article>
+          <article class="problem-card">
+            <span class="big-stat">0</span>
+            <h3>safety nets for offline</h3>
+            <p>
+              First meetings happen offline — but no major app builds emergency
+              contacts, check-ins, or SOS into the product loop.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ========== SOLUTION ========== -->
+      <section class="shell solution-section" id="product">
+        <div class="section-heading reveal">
+          <span class="kicker">02 · The solution</span>
+          <h2>Elyra is the trust operating system for modern connection.</h2>
+          <p class="lede">
+            Pehchaan Layer dual identity, explainable matching, AI moderation,
+            risk scoring, Safe Date sessions, and premium privacy controls — all
+            unified into one launch-ready product surface.
+          </p>
+        </div>
+
+        <div class="feature-strip reveal delay-1">
+          <article>
+            <span class="feature-num">01</span>
+            <h3>Dual identity</h3>
+            <p>Public profile stays light. Private fields stay AES-256 encrypted, reveal-based, and audit-logged.</p>
+          </article>
+          <article>
+            <span class="feature-num">02</span>
+            <h3>Intent matching</h3>
+            <p>No swipe pressure. Candidates ranked by intent, preference, distance, and 384d embeddings.</p>
+          </article>
+          <article>
+            <span class="feature-num">03</span>
+            <h3>AI safety</h3>
+            <p>Toxicity scoring, fake-profile heuristics, image checks, and explainable risk traces in-product.</p>
+          </article>
+          <article>
+            <span class="feature-num">04</span>
+            <h3>Safe Date</h3>
+            <p>Emergency contacts, timed check-ins, live location, and SOS — designed into the product loop.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ========== INTERACTIVE DEMO COCKPIT ========== -->
+      <section class="shell demo-section" id="demo">
+        <div class="section-heading reveal">
+          <span class="kicker">03 · Interactive product demo</span>
+          <h2>The full investor flow in under 90 seconds.</h2>
+          <p class="lede">
+            Use the rail to simulate onboarding, dual-identity reveal, match generation,
+            AI moderation, and Safe Date activation — all running locally on this page.
+          </p>
+        </div>
+
+        <div class="demo-cockpit reveal delay-1">
+          <aside class="demo-rail" aria-label="Demo flow selector">
+            <div class="rail-header">
+              <span>Investor flow</span>
+              <strong id="railProgress">1 / 5</strong>
+            </div>
+            <button class="rail-step active" type="button" data-panel="onboarding">
+              <span class="rail-num">1</span>
+              <span class="rail-label">
+                <strong>Onboarding</strong>
+                <small>Identity + intent capture</small>
+              </span>
+            </button>
+            <button class="rail-step" type="button" data-panel="identity">
+              <span class="rail-num">2</span>
+              <span class="rail-label">
+                <strong>Dual identity</strong>
+                <small>Pehchaan Layer reveal</small>
+              </span>
+            </button>
+            <button class="rail-step" type="button" data-panel="matching">
+              <span class="rail-num">3</span>
+              <span class="rail-label">
+                <strong>Matching AI</strong>
+                <small>Explainable scoring</small>
+              </span>
+            </button>
+            <button class="rail-step" type="button" data-panel="chat">
+              <span class="rail-num">4</span>
+              <span class="rail-label">
+                <strong>Moderated chat</strong>
+                <small>Visible AI decisions</small>
+              </span>
+            </button>
+            <button class="rail-step" type="button" data-panel="safe">
+              <span class="rail-num">5</span>
+              <span class="rail-label">
+                <strong>Safe Date</strong>
+                <small>Offline safety loop</small>
+              </span>
+            </button>
+            <div class="rail-footer">
+              <span class="dot teal"></span>
+              All flows simulated locally · no backend
+            </div>
+          </aside>
+
+          <div class="demo-stage">
+            <!-- ONBOARDING PANEL -->
+            <section class="demo-panel active" data-panel-view="onboarding">
+              <div class="panel-copy">
+                <span class="kicker">Step-based onboarding</span>
+                <h3>Capture identity and intent without forcing over-disclosure.</h3>
+                <p>Public identity, preferences, and intent stay separated from the very first screen.</p>
+              </div>
+              <div class="panel-body">
+                <article class="auth-card">
+                  <div class="tabs" role="tablist">
+                    <button class="tab active" type="button" data-auth-tab="signup">Sign up</button>
+                    <button class="tab" type="button" data-auth-tab="login">Login</button>
+                  </div>
+                  <form class="auth-form active" id="signupForm">
+                    <div class="form-grid">
+                      <label>
+                        Display name
+                        <input type="text" value="Mira" />
+                      </label>
+                      <label>
+                        Pronouns
+                        <input type="text" value="they/she" />
+                      </label>
+                      <label>
+                        Email
+                        <input type="email" value="mira@elyra.app" />
+                      </label>
+                      <label>
+                        City visibility
+                        <input type="text" value="Mumbai only" />
+                      </label>
+                    </div>
+                    <button class="primary-action full" type="button" data-scroll="[data-panel='identity']" data-rail-jump="identity">
+                      Continue to identity reveal
+                    </button>
+                  </form>
+                  <form class="auth-form" id="loginForm">
+                    <div class="form-grid">
+                      <label>
+                        Email
+                        <input type="email" value="demo@elyra.app" />
+                      </label>
+                      <label>
+                        Password
+                        <input type="password" value="trustfirst" />
+                      </label>
+                    </div>
+                    <button class="primary-action full" type="button" data-rail-jump="matching">
+                      Enter prototype
+                    </button>
+                  </form>
+                </article>
+
+                <article class="onboarding-card">
+                  <div class="step-indicator">
+                    <i class="complete"></i>
+                    <i class="complete"></i>
+                    <i class="active"></i>
+                    <i></i>
+                  </div>
+                  <h4>What are you open to right now?</h4>
+                  <div class="intent-picker" role="group" aria-label="Intent selection">
+                    <button class="intent-btn active" type="button" data-intent="Exploring">
+                      <strong>Exploring</strong>
+                      <span>Move gently, learn what feels right.</span>
+                    </button>
+                    <button class="intent-btn" type="button" data-intent="Serious">
+                      <strong>Serious</strong>
+                      <span>Looking for long-term alignment.</span>
+                    </button>
+                    <button class="intent-btn" type="button" data-intent="Discreet">
+                      <strong>Discreet</strong>
+                      <span>Privacy and pace are paramount.</span>
+                    </button>
+                    <button class="intent-btn" type="button" data-intent="Friendship">
+                      <strong>Friendship</strong>
+                      <span>Start with community and trust.</span>
+                    </button>
+                  </div>
+                  <div class="explain-box" id="intentExplain">
+                    <strong>Exploring selected</strong>
+                    <span>Discovery prioritizes gentle pacing, shared boundaries, and low-pressure introductions.</span>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <!-- IDENTITY PANEL -->
+            <section class="demo-panel" data-panel-view="identity">
+              <div class="panel-copy">
+                <span class="kicker">Pehchaan Layer · Dual identity</span>
+                <h3>Public and private identity are separate product surfaces.</h3>
+                <p>Tap the lock to simulate a consented reveal. Every reveal writes an audit event.</p>
+              </div>
+              <div class="panel-body">
+                <article class="profile-side">
+                  <div class="avatar-large coral">MR</div>
+                  <h4>Mira · 26</h4>
+                  <p class="muted">Queer, non-binary · Mumbai · Exploring</p>
+                  <p>Loves independent films, late evening walks, and conversations that respect context, privacy, and consent.</p>
+                  <div class="tag-cloud">
+                    <span>Photo verified</span>
+                    <span>City only</span>
+                    <span>Anonymous chat ready</span>
+                    <span>Member since 2026</span>
+                  </div>
+                </article>
+
+                <article class="private-side locked" id="privateSide">
+                  <div class="private-head">
+                    <div>
+                      <span class="kicker">Private profile</span>
+                      <h4>AES-256-GCM protected</h4>
+                    </div>
+                    <span class="lock-chip" id="lockChip">Locked</span>
+                  </div>
+                  <div class="unlock-visual">
+                    <span class="lock-core"></span>
+                    <i class="lock-orbit"></i>
+                  </div>
+                  <div class="private-fields">
+                    <p><span>Real name</span><strong data-secret="Ananya Rao">Encrypted field</strong></p>
+                    <p><span>Phone</span><strong data-secret="+91 98765 43210">Encrypted field</strong></p>
+                    <p><span>Address</span><strong data-secret="Bandra West, Mumbai">Encrypted field</strong></p>
+                    <p><span>ID document</span><strong data-secret="Verified · not shared">Encrypted field</strong></p>
+                  </div>
+                  <button class="primary-action full" type="button" id="unlockProfile">Simulate consented reveal</button>
+                  <small id="revealAudit">Awaiting consent. Reveal actions are audit-logged and revocable.</small>
+                </article>
+              </div>
+            </section>
+
+            <!-- MATCHING PANEL -->
+            <section class="demo-panel" data-panel-view="matching">
+              <div class="panel-copy">
+                <span class="kicker">Explainable matching engine</span>
+                <h3>Generate intent cards with transparent AI reasoning.</h3>
+                <p>Composite score = 30% intent + 35% embedding + 20% distance + 15% preferences.</p>
+              </div>
+              <div class="panel-body">
+                <article class="candidate-card" id="candidateCard">
+                  <div class="candidate-top">
+                    <span class="avatar-medium" id="candidateAvatar">AR</span>
+                    <div class="candidate-meta">
+                      <h4 id="candidateName">Aarav · 28</h4>
+                      <p id="candidateMeta">Bengaluru · he/they · discreet</p>
+                    </div>
+                    <strong class="score-badge" id="candidateScore">92%</strong>
+                  </div>
+                  <p id="candidateBio" class="candidate-bio">
+                    Prefers verified, slow-paced connections, public first meetings, and clear boundaries.
+                  </p>
+                  <div class="reason-stack" id="reasonStack">
+                    <span>Exact intent alignment</span>
+                    <span>High preference overlap</span>
+                    <span>Low risk · verified</span>
+                  </div>
+                  <div class="candidate-actions">
+                    <button class="secondary-action" type="button" id="passMatch">Pass respectfully</button>
+                    <button class="primary-action" type="button" id="likeMatch">Connect with intent</button>
+                  </div>
+                  <div class="match-result" id="matchResult">
+                    Candidate ready · no swipe queue, only explainable intent cards.
+                  </div>
+                </article>
+
+                <aside class="score-console">
+                  <h4>AI explainability</h4>
+                  <div class="score-row" data-score-row>
+                    <span>Intent match</span>
+                    <strong>30%</strong>
+                    <div class="meter"><i style="width: 96%"></i></div>
+                  </div>
+                  <div class="score-row" data-score-row>
+                    <span>Embedding similarity</span>
+                    <strong>35%</strong>
+                    <div class="meter"><i style="width: 88%"></i></div>
+                  </div>
+                  <div class="score-row" data-score-row>
+                    <span>Distance score</span>
+                    <strong>20%</strong>
+                    <div class="meter"><i style="width: 74%"></i></div>
+                  </div>
+                  <div class="score-row" data-score-row>
+                    <span>Preference fit</span>
+                    <strong>15%</strong>
+                    <div class="meter"><i style="width: 91%"></i></div>
+                  </div>
+                  <button class="primary-action full" type="button" id="generateMatch">Generate next match</button>
+                </aside>
+              </div>
+            </section>
+
+            <!-- CHAT PANEL -->
+            <section class="demo-panel" data-panel-view="chat">
+              <div class="panel-copy">
+                <span class="kicker">Privacy-first chat · visible AI</span>
+                <h3>Moderation decisions are visible, understandable, and reversible.</h3>
+                <p>Type a message containing "phone", "address", "location", or "home" to trigger sensitive-content blur.</p>
+              </div>
+              <div class="panel-body">
+                <article class="chat-window">
+                  <header class="chat-head">
+                    <div class="mini-person">
+                      <span class="avatar teal small">AR</span>
+                      <div>
+                        <strong>Aarav</strong>
+                        <small><span class="online-dot"></span> Online · trust 91</small>
+                      </div>
+                    </div>
+                    <em>Anonymous mode available</em>
+                  </header>
+
+                  <div class="decision-banner">
+                    <strong>AI moderation decision</strong>
+                    <span id="moderationDecision">No risk detected in the latest message.</span>
+                  </div>
+
+                  <div class="message-feed" id="messageFeed">
+                    <div class="bubble received">
+                      I liked your note about slow introductions. Public cafe first sounds good.
+                      <em class="bubble-meta">Read · AI checked</em>
+                    </div>
+                    <div class="bubble sent">
+                      Yes — public place works. I prefer checking trust indicators before sharing exact details.
+                      <em class="bubble-meta">Delivered</em>
+                    </div>
+                    <div class="bubble received blurred" id="starterBlur">
+                      <span>Potentially sensitive personal detail hidden by AI moderation.</span>
+                      <button type="button" data-unblur="#starterBlur">View anyway</button>
+                    </div>
+                  </div>
+
+                  <div class="composer">
+                    <input
+                      id="chatComposer"
+                      type="text"
+                      value="Can we keep location sharing inside Safe Date?"
+                      aria-label="Chat composer"
+                    />
+                    <button class="primary-action" type="button" id="sendDemoMessage">Send</button>
+                  </div>
+                </article>
+
+                <aside class="moderation-console">
+                  <h4>Reasoning trace</h4>
+                  <p id="moderationTrace">Category: allow · toxicity 0.08 · action: deliver</p>
+                  <div class="trace-grid">
+                    <div><span>Harassment</span><strong>0.02</strong></div>
+                    <div><span>Threat</span><strong>0.00</strong></div>
+                    <div><span>Personal data</span><strong id="personalDataScore">0.12</strong></div>
+                    <div><span>Action</span><strong id="moderationAction">Allow</strong></div>
+                  </div>
+                  <div class="trace-footer">
+                    <span class="dot teal"></span>
+                    Production logs every decision
+                  </div>
+                </aside>
+              </div>
+            </section>
+
+            <!-- SAFE DATE PANEL -->
+            <section class="demo-panel" data-panel-view="safe">
+              <div class="panel-copy">
+                <span class="kicker">Safe Date · offline safety</span>
+                <h3>Emergency contact, check-ins, and SOS as a first-class flow.</h3>
+                <p>Start a session, watch the live route pulse, check in, or trigger SOS. All simulated.</p>
+              </div>
+              <div class="panel-body">
+                <aside class="safe-setup">
+                  <label>
+                    Emergency contact
+                    <input type="text" value="Riya · +91 90000 11223" />
+                  </label>
+                  <label>
+                    Meeting location
+                    <input type="text" value="Third Wave Coffee, Indiranagar" />
+                  </label>
+                  <div class="safe-intervals" role="group">
+                    <button class="active" type="button" data-safe-interval="15">15 min</button>
+                    <button type="button" data-safe-interval="30">30 min</button>
+                    <button type="button" data-safe-interval="60">60 min</button>
+                  </div>
+                  <button class="primary-action full" type="button" id="startSafeSession">Start Safe Session</button>
+                  <small class="muted">Simulated only · no SMS sent.</small>
+                </aside>
+
+                <article class="safe-map-card">
+                  <div class="map-header">
+                    <div>
+                      <span class="kicker">Session status</span>
+                      <strong id="safeStatus">Idle</strong>
+                    </div>
+                    <span class="track-pill" id="safeTracking">Tracking off</span>
+                  </div>
+                  <div class="map-canvas">
+                    <div class="map-grid"></div>
+                    <svg class="route-svg" viewBox="0 0 400 260" preserveAspectRatio="none" aria-hidden="true">
+                      <path d="M 60 200 C 130 100, 240 80, 340 60" />
+                    </svg>
+                    <span class="map-pin pin-start">Cafe</span>
+                    <span class="map-pin pin-user" id="userPin">You</span>
+                    <span class="map-pin pin-contact">Contact</span>
+                  </div>
+                  <div class="safe-controls">
+                    <div class="safe-timer">
+                      <span>Next check-in</span>
+                      <strong id="safeCountdown">--:--</strong>
+                    </div>
+                    <button class="secondary-action" type="button" id="safeCheckIn">Check in</button>
+                    <button class="danger-action" type="button" id="safeSos">SOS</button>
+                  </div>
+                </article>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== TRUST / DIFFERENTIATION ========== -->
+      <section class="shell trust-section" id="trust">
+        <div class="section-heading reveal">
+          <span class="kicker">04 · Differentiation</span>
+          <h2>Trust and privacy are measurable, explainable, and visible.</h2>
+          <p class="lede">
+            Elyra surfaces risk reasoning before users decide to match, chat, reveal,
+            meet, block, report, or upgrade — turning safety into a UX moat.
+          </p>
+        </div>
+
+        <div class="trust-grid reveal delay-1">
+          <article class="trust-dashboard">
+            <div class="trust-ring" id="trustRing" style="--trust: 0">
+              <span id="trustValue">0</span>
+              <small>Trust score</small>
+            </div>
+            <h3>Composite trust</h3>
+            <p id="trustSummary">Animating verification, toxicity, reports, fake-profile, and account-age inputs.</p>
+            <button class="primary-action full" type="button" id="animateTrust">Recompute risk score</button>
+          </article>
+
+          <article class="risk-reasons">
+            <h3>Risk reasoning</h3>
+            <div class="risk-item">
+              <span>Report count</span>
+              <strong>0 · low weight</strong>
+              <div class="risk-bar"><i style="width: 6%"></i></div>
+            </div>
+            <div class="risk-item">
+              <span>Chat toxicity avg</span>
+              <strong>0.08 · clean history</strong>
+              <div class="risk-bar"><i style="width: 12%"></i></div>
+            </div>
+            <div class="risk-item">
+              <span>Verification status</span>
+              <strong>Photo + ID verified</strong>
+              <div class="risk-bar"><i style="width: 96%; --c: var(--green)"></i></div>
+            </div>
+            <div class="risk-item">
+              <span>Fake-profile detector</span>
+              <strong>0.11 · allow</strong>
+              <div class="risk-bar"><i style="width: 14%"></i></div>
+            </div>
+          </article>
+
+          <article class="architecture-card">
+            <h3>Safety systems investors can see</h3>
+            <ul class="arch-list">
+              <li><span></span> Detoxify-style moderation + keyword blocklist</li>
+              <li><span></span> Fake-profile scoring from heuristics + embedding anomalies</li>
+              <li><span></span> Encrypted private fields with reveal audit trail</li>
+              <li><span></span> Safe Date events for SOS + missed check-ins</li>
+              <li><span></span> Risk-tiered rate limits + ML-flagged review queue</li>
+            </ul>
+            <div class="arch-stamp">
+              <span class="verified-seal">Production-ready architecture</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ========== BUSINESS / MONETIZATION ========== -->
+      <section class="shell business-section" id="business">
+        <div class="section-heading reveal">
+          <span class="kicker">05 · Monetization</span>
+          <h2>Privacy creates a premium willingness-to-pay loop.</h2>
+          <p class="lede">
+            Paid tiers align with user intensity: unlimited likes, advanced filters,
+            priority matching, read receipts, boost, incognito, and priority support.
+          </p>
+        </div>
+
+        <div class="billing-control reveal" role="group" aria-label="Billing cadence">
+          <button class="active" type="button" data-billing-mode="monthly">Monthly</button>
+          <button type="button" data-billing-mode="yearly">Yearly · save 17%</button>
+        </div>
+
+        <div class="pricing-grid reveal delay-1">
+          <article class="price-card">
+            <span class="plan-tag">Free</span>
+            <h3 data-plan-price="free">₹0</h3>
+            <p>Basic matching, 5 likes/day, trust basics, ads.</p>
+            <ul class="plan-list">
+              <li>5 likes per day</li>
+              <li>Basic intent match</li>
+              <li>Trust score visible</li>
+            </ul>
+            <button class="secondary-action full" type="button" disabled>Current plan</button>
+          </article>
+
+          <article class="price-card featured">
+            <span class="plan-tag gold">Plus · most popular</span>
+            <h3 data-plan-price="plus">₹499</h3>
+            <p>Unlimited likes, see who liked you, no ads.</p>
+            <ul class="plan-list">
+              <li>Unlimited likes</li>
+              <li>See who liked you</li>
+              <li>No ads</li>
+              <li>Priority moderation</li>
+            </ul>
+            <button class="primary-action full" type="button" data-upgrade-plan="Plus">Upgrade to Plus</button>
+          </article>
+
+          <article class="price-card">
+            <span class="plan-tag">Premium</span>
+            <h3 data-plan-price="premium">₹999</h3>
+            <p>Advanced filters, priority matching, read receipts.</p>
+            <ul class="plan-list">
+              <li>Everything in Plus</li>
+              <li>Advanced filters</li>
+              <li>Priority matching</li>
+              <li>LLM conversation starters</li>
+            </ul>
+            <button class="primary-action full" type="button" data-upgrade-plan="Premium">Upgrade to Premium</button>
+          </article>
+
+          <article class="price-card">
+            <span class="plan-tag">Elite</span>
+            <h3 data-plan-price="elite">₹1999</h3>
+            <p>Boost, incognito, premium privacy, priority support.</p>
+            <ul class="plan-list">
+              <li>Everything in Premium</li>
+              <li>Profile boost</li>
+              <li>Incognito mode</li>
+              <li>Priority human support</li>
+            </ul>
+            <button class="primary-action full" type="button" data-upgrade-plan="Elite">Upgrade to Elite</button>
+          </article>
+        </div>
+
+        <div class="locked-revenue reveal delay-2">
+          <button type="button" data-upgrade-plan="Premium">
+            <span class="lock-pill">Locked</span>
+            <span>LLM conversation starters</span>
+            <i class="arrow">→</i>
+          </button>
+          <button type="button" data-upgrade-plan="Elite">
+            <span class="lock-pill">Locked</span>
+            <span>Incognito discovery mode</span>
+            <i class="arrow">→</i>
+          </button>
+          <button type="button" data-upgrade-plan="Plus">
+            <span class="lock-pill">Locked</span>
+            <span>See who liked you</span>
+            <i class="arrow">→</i>
+          </button>
+        </div>
+      </section>
+
+      <!-- ========== SCALE ========== -->
+      <section class="shell scale-section" id="scale">
+        <div class="section-heading reveal">
+          <span class="kicker">06 · Scale</span>
+          <h2>Built India-first. Designed for global expansion.</h2>
+          <p class="lede">
+            Web v1 ships on Next.js, mobile via Expo, AI services on Python, infra on
+            Kubernetes — with observability, rate limits, backups, and multi-region growth.
+          </p>
+        </div>
+
+        <div class="scale-grid reveal delay-1">
+          <article class="market-map">
+            <div class="map-world">
+              <div class="globe-ring r1"></div>
+              <div class="globe-ring r2"></div>
+              <div class="globe-ring r3"></div>
+              <span class="region eu">EU</span>
+              <span class="region mena">MENA</span>
+              <span class="region india active">
+                <strong>India</strong>
+                <small>Live</small>
+              </span>
+              <span class="region sea">SEA</span>
+              <span class="region latam">LATAM</span>
+            </div>
+            <div class="map-legend">
+              <span><i class="dot teal"></i> Phase 1 · India launch</span>
+              <span><i class="dot gold"></i> Phase 2 · SEA + MENA</span>
+              <span><i class="dot coral"></i> Phase 3 · Global</span>
+            </div>
+          </article>
+
+          <article class="scale-copy">
+            <h3>Expansion thesis</h3>
+            <p>
+              Elyra starts where privacy-sensitive connection has acute need, then expands
+              into markets where identity, safety, and trust are differentiating product moats.
+            </p>
+            <div class="scale-metrics">
+              <div>
+                <strong>Web v1</strong>
+                <span>Next.js · React · TypeScript</span>
+              </div>
+              <div>
+                <strong>Mobile</strong>
+                <span>Expo · React Native scaffold</span>
+              </div>
+              <div>
+                <strong>Infra</strong>
+                <span>Docker · K8s · NGINX · HPA</span>
+              </div>
+              <div>
+                <strong>Quality</strong>
+                <span>API · WS · E2E · a11y · load · security</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ========== FINAL INVESTOR CTA ========== -->
+      <section class="shell cta-section">
+        <div class="cta-card reveal">
+          <div class="cta-copy">
+            <span class="kicker">07 · The ask</span>
+            <h2>Trust is the next dating moat. Elyra is building it.</h2>
+            <p class="lede">
+              We're raising a seed round to launch India-first, build the AI safety stack,
+              and ship the mobile app. Investors get a privacy-defensible platform aimed at
+              an underserved, high-LTV community.
+            </p>
+            <div class="cta-actions">
+              <button class="primary-action" type="button" data-open-auth>
+                Request investor access
+                <span class="action-arrow" aria-hidden="true">→</span>
+              </button>
+              <button class="secondary-action" type="button" data-scroll="#demo">Replay demo</button>
+            </div>
+          </div>
+          <div class="cta-metrics">
+            <div>
+              <strong>$2.5B</strong>
+              <span>India dating TAM by 2028</span>
+            </div>
+            <div>
+              <strong>2.5M+</strong>
+              <span>LGBTQIA+ digital natives</span>
+            </div>
+            <div>
+              <strong>6×</strong>
+              <span>Privacy-paid willingness-to-pay</span>
+            </div>
+            <div>
+              <strong>Q1 '26</strong>
+              <span>Targeted India web launch</span>
+            </div>
+          </div>
+        </div>
+
+        <footer class="footer">
+          <div>
+            <span class="brand-sigil small">E</span>
+            <span>Elyra · Pehchaan Layer · 2026</span>
+          </div>
+          <span>UI-only POC · all interactions are local simulations</span>
+        </footer>
+      </section>
+    </main>
+
+    <!-- ========== AUTH MODAL ========== -->
+    <div class="modal-backdrop" id="authModal" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button class="modal-close" type="button" data-close-modal aria-label="Close modal">×</button>
+        <span class="kicker">Investor demo access</span>
+        <h3 id="modalTitle">UI-only authentication preview</h3>
+        <p class="muted">No account is created. This simulates the first investor demo state.</p>
+        <label>
+          Email
+          <input type="email" value="investor@elyra.app" />
+        </label>
+        <label>
+          Password
+          <input type="password" value="prototype" />
+        </label>
+        <button class="primary-action full" type="button" data-close-modal data-scroll="#demo">
+          Enter product demo
+        </button>
+        <small class="muted">By entering you accept the privacy-first POC terms (simulated).</small>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="ultimate.js" defer></script>
+  </body>
+</html>

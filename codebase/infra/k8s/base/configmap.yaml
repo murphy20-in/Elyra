@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: elyra-config
+  namespace: elyra
+data:
+  # Application
+  APP_ENV:            "production"
+  APP_VERSION:        "0.1.0"
+  LOG_LEVEL:          "INFO"
+
+  # Database hostnames (K8s service names)
+  PGHOST:             "postgres-service"
+  PGPORT:             "5432"
+  PGDATABASE:         "elyra_db"
+  PGUSER:             "elyra_user"
+  MONGODB_DB:         "elyra_chat"
+
+  # Internal service URLs (K8s DNS)
+  EMBEDDING_SERVICE_URL:    "http://embedding-service:9001"
+  MODERATION_SERVICE_URL:   "http://moderation-service:9002"
+  IMAGE_SERVICE_URL:        "http://image-service:9003"
+  FAKE_PROFILE_SERVICE_URL: "http://fake-profile-service:9004"
+
+  # CORS (set to actual domain in overlays)
+  CORS_ORIGINS:       "https://elyra.app"
+  ALLOWED_HOSTS:      "elyra.app,api.elyra.app"
+
+  # JWT
+  JWT_ALGORITHM:      "HS256"
+  ACCESS_TOKEN_EXPIRE_MINUTES:  "15"
+  REFRESH_TOKEN_EXPIRE_DAYS:    "7"
+
+  # LLM
+  LLM_PROVIDER:       "local"
+
+  # Storage
+  AWS_REGION:         "ap-south-1"
+  S3_BUCKET_NAME:     "elyra-uploads"

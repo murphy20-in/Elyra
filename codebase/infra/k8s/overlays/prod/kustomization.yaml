@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+  - ../../base
+
+images:
+  - name: ghcr.io/elyra/backend
+    newTag: "${IMAGE_TAG}"
+  - name: ghcr.io/elyra/frontend
+    newTag: "${IMAGE_TAG}"
+  - name: ghcr.io/elyra/embedding-service
+    newTag: "${IMAGE_TAG}"
+  - name: ghcr.io/elyra/moderation-service
+    newTag: "${IMAGE_TAG}"
+  - name: ghcr.io/elyra/image-service
+    newTag: "${IMAGE_TAG}"
+  - name: ghcr.io/elyra/fake-profile-service
+    newTag: "${IMAGE_TAG}"
+
+configMapGenerator:
+  - name: elyra-config
+    behavior: merge
+    literals:
+      - APP_ENV=production
+      - LOG_LEVEL=WARNING
+
+namespace: elyra

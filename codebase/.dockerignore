@@ -1,0 +1,54 @@
+# ── Python artifacts ──────────────────────────────────────────────────────────
+**/__pycache__
+**/*.py[cod]
+**/*.so
+**/.pytest_cache
+**/.mypy_cache
+**/.ruff_cache
+**/htmlcov
+**/.coverage
+**/test-results.xml
+
+# ── Node artifacts ────────────────────────────────────────────────────────────
+**/node_modules
+**/.next
+**/out
+**/.turbo
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+**/venv
+**/.venv
+
+# ── Git ───────────────────────────────────────────────────────────────────────
+**/.git
+**/.gitignore
+
+# ── Environment / secrets ─────────────────────────────────────────────────────
+**/.env
+**/.env.local
+**/.env.*.local
+
+# ── IDE ───────────────────────────────────────────────────────────────────────
+**/.idea
+**/.vscode
+**/*.swp
+
+# ── Docs ──────────────────────────────────────────────────────────────────────
+**/README.md
+**/docs
+
+# ── Large files / model weights ───────────────────────────────────────────────
+**/*.bin
+**/*.pt
+**/*.pth
+**/models
+**/cache
+
+# ── Test fixtures / reports ───────────────────────────────────────────────────
+**/tests
+**/e2e
+**/playwright-report
+**/test-results
+
+# ── Kubernetes (not needed in containers) ────────────────────────────────────
+**/infra/k8s
