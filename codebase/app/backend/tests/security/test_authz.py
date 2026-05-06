@@ -20,7 +20,7 @@ class TestRBACEnforcement:
 
 class TestCrossUserIsolation:
     async def test_user_cannot_read_other_preferences(self, client, auth_headers, second_user_headers):
-        me1 = await client.get("/api/v1/auth/me", headers=auth_headers)
+        _ = await client.get("/api/v1/auth/me", headers=auth_headers)
         me2 = await client.get("/api/v1/auth/me", headers=second_user_headers)
         resp = await client.get(f"/api/v1/profiles/{me2.json()['id']}/preferences",
                                 headers=auth_headers)

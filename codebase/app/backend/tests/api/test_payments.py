@@ -1,6 +1,8 @@
 """API tests for /api/v1/payments/* endpoints."""
 import pytest
-import hmac, hashlib, json
+import hmac
+import hashlib
+import json
 
 pytestmark = pytest.mark.api
 

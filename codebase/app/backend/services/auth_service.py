@@ -1,7 +1,6 @@
 import asyncio
-from datetime import datetime, timezone
-from typing import Optional
-from uuid import UUID
+from datetime import datetime, timedelta, timezone
+from uuid import UUID, uuid4
 
 import httpx
 import secrets
@@ -15,9 +14,6 @@ from app.backend.core.security import (
     create_access_token,
     create_refresh_token,
     decode_token,
-    get_encryption_key,
-    encrypt_field,
-    decrypt_field,
 )
 from app.backend.core.events import (
     USER_REGISTERED,
@@ -107,7 +103,7 @@ class AuthService:
         self.db.add(audit)
         await self.db.commit()
 
-        jti = str(secrets.token_uuid())
+        jti = str(uuid4())
         access_token = create_access_token({"sub": str(user.id), "jti": jti})
         refresh_token = create_refresh_token({"sub": str(user.id), "jti": jti})
 
@@ -148,7 +144,7 @@ class AuthService:
         user.last_login = datetime.now(timezone.utc)
         await self.db.commit()
 
-        jti = str(secrets.token_uuid())
+        jti = str(uuid4())
         access_token = create_access_token({"sub": str(user.id), "jti": jti})
         refresh_token = create_refresh_token({"sub": str(user.id), "jti": jti})
 
@@ -185,7 +181,7 @@ class AuthService:
         remaining_ttl = max(0, int((exp_dt - datetime.now(timezone.utc)).total_seconds()))
         await self.redis.set(f"refresh_blacklist:{jti}", "1", ex=remaining_ttl)
 
-        new_jti = str(secrets.token_uuid())
+        new_jti = str(uuid4())
         new_access_token = create_access_token({"sub": user_id, "jti": new_jti})
         new_refresh_token = create_refresh_token({"sub": user_id, "jti": new_jti})
 
@@ -262,7 +258,7 @@ class AuthService:
         user.password_hash = hash_password(new_password)
         token_record.used_at = datetime.now(timezone.utc)
 
-        pattern = f"refresh_blacklist:*"
+        pattern = "refresh_blacklist:*"
         keys = []
         cursor = 0
         while True:
@@ -293,7 +289,7 @@ class AuthService:
         cursor = 0
         keys = []
         while True:
-            cursor, k = await self.redis.scan(cursor, match=f"refresh_blacklist:*", count=100)
+            cursor, k = await self.redis.scan(cursor, match="refresh_blacklist:*", count=100)
             keys.extend(k)
             if cursor == 0:
                 break
@@ -473,7 +469,7 @@ class AuthService:
 
             await publish_event(USER_REGISTERED, {"user_id": str(user.id), "email": user.email})
 
-        jti = str(secrets.token_uuid())
+        jti = str(uuid4())
         access_token = create_access_token({"sub": str(user.id), "jti": jti})
         refresh_token = create_refresh_token({"sub": str(user.id), "jti": jti})
 

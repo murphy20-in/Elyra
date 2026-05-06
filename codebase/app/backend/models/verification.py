@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import String, Integer, DateTime, ForeignKey, Index
+from sqlalchemy import Column, String, Integer, DateTime, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID as PGUUID
 
 from app.backend.models.base import Base, TimestampMixin

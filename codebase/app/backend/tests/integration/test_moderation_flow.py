@@ -1,12 +1,13 @@
 """Integration: send toxic message → moderation → flag/block."""
 import pytest
-import respx, httpx
+import respx
+import httpx
 
 pytestmark = [pytest.mark.integration, pytest.mark.slow]
 
 
 class TestModerationFlow:
-    async def test_clean_message_allowed(self, client, match_and_thread):
+    async def test_clean_message_allowed(self, client, match_and_thread, auth_headers):
         thread_id = match_and_thread["thread_id"]
         resp = await client.get(f"/api/v1/chat/threads/{thread_id}/messages",
                                 headers=auth_headers)

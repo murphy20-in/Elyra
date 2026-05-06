@@ -39,13 +39,16 @@ USER appuser
 
 EXPOSE 8000
 
-# Liveness probe: lightweight check without importing full app
+# Liveness probe: hit the mounted health router
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-    CMD curl -fs http://localhost:8000/health/live || exit 1
+    CMD curl -fs http://localhost:8000/api/v1/health/live || exit 1
 
 # Production: 4 uvicorn workers
 # Dev (docker-compose): overridden with --reload
-CMD ["uvicorn", "main:app", \
+# NOTE: image is built from ./backend (per docker-compose context). At runtime
+# the Python package layout requires `app.backend.main:app`, so the container
+# WORKDIR contains the project root with `app/backend/...` mounted in place.
+CMD ["uvicorn", "app.backend.main:app", \
      "--host", "0.0.0.0", \
      "--port", "8000", \
      "--workers", "4", \

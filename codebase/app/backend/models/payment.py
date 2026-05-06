@@ -1,8 +1,7 @@
 import uuid
-from sqlalchemy import String, Numeric, ForeignKey, Index, UniqueConstraint, Enum as SQLEnum
+from sqlalchemy import Column, String, Numeric, ForeignKey, Index, Enum as SQLEnum
 from sqlalchemy.dialects.postgresql import UUID as PGUUID
 from sqlalchemy.orm import relationship
-from decimal import Decimal
 
 from app.backend.models.base import Base, TimestampMixin
 

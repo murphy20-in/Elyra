@@ -8,7 +8,6 @@ import logging
 from app.backend.core.security import decode_token
 from app.backend.core.database import async_session
 from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
 from app.backend.models.user import User
 
 logger = logging.getLogger(__name__)

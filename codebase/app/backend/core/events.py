@@ -80,6 +80,9 @@ class EventSubscriber:
     async def _dispatch(self, event: dict):
         event_type = event.get("event")
         data = event.get("data", {})
+        if event_type is None:
+            logger.debug("event_no_type", event=event)
+            return
         handlers = self.HANDLERS.get(event_type, [])
         if not handlers:
             logger.debug("event_no_handlers", event=event_type)
@@ -297,10 +300,11 @@ async def handle_sms_emergency_contact(data: dict):
         f"Note: {data.get('note', 'No additional info.')} "
         "Please check on them immediately."
     )
-    await sms.send(phone, message)
-    logger.warning("emergency_sms_sent",
-                   contact_phone=phone[:4] + "****",
-                   event_type=event_type)
+    if phone:
+        await sms.send(phone, message)
+        logger.warning("emergency_sms_sent",
+                       contact_phone=phone[:4] + "****",
+                       event_type=event_type)
 
 
 # Wire handlers

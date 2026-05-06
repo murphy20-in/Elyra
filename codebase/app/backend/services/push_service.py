@@ -1,6 +1,5 @@
 import asyncio
 import json
-from typing import Optional
 
 import firebase_admin
 from firebase_admin import credentials, messaging
@@ -42,7 +41,7 @@ async def send_push(
             notification=messaging.Notification(title=title, body=body),
             data=data,
         )
-        return messaging.send_multicast(multicrypt)
+        return messaging.send_multicast(multicast)
 
     try:
         loop = asyncio.get_event_loop()

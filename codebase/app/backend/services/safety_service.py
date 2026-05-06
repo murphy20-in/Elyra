@@ -1,4 +1,4 @@
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
 from typing import Optional
 from uuid import UUID
 
@@ -162,7 +162,7 @@ class SafetyService:
             user_result = await self.db.execute(
                 select(User).where(User.id == user_id)
             )
-            user = user_result.scalar_one()
+            user_result.scalar_one()
 
             private_result = await self.db.execute(
                 select(PublicProfile).where(PublicProfile.user_id == user_id)

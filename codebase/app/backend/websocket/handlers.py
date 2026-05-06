@@ -12,7 +12,6 @@ from datetime import datetime, timezone
 from app.backend.core.config import settings
 from app.backend.core.database import async_session
 from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.backend.models.chat import ChatThread
 from app.backend.models.safety import Block

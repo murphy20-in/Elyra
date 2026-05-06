@@ -20,8 +20,7 @@ from datetime import datetime, timezone
 
 from app.backend.core.redis_client import get_redis
 from app.backend.core.database import async_session
-from sqlalchemy import select, update
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import update
 
 from app.backend.models.user import User
 

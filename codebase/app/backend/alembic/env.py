@@ -1,38 +1,29 @@
+"""Alembic async migration environment for Elyra."""
+from __future__ import annotations
+
 import asyncio
-import sys
 import os
+import sys
 from logging.config import fileConfig
+from pathlib import Path
+
+from alembic import context
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
-from alembic import context
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+# Make the repo root importable so the `app.backend.*` package path resolves.
+_HERE = Path(__file__).resolve()
+_REPO_ROOT = _HERE.parents[3]  # .../codebase
+sys.path.insert(0, str(_REPO_ROOT))
 
-from core.config import settings
-from models.base import Base
-
-
-from models.user import User
-from models.profile import PublicProfile, PrivateProfile
-from models.preference import UserPreference
-from models.match import Match
-from models.chat import ChatThread
-from models.safety import SafetyEvent, Report, Block
-from models.embedding import UserEmbedding
-from models.subscription import Subscription
-from models.payment import Payment
-from models.notification import Notification, DeviceToken
-from models.safe_session import SafeSession
-from models.verification import (
-    EmailVerification,
-    PhoneVerification,
-    PasswordResetToken,
-)
-from models.audit import AuditLog
+from app.backend.core.config import settings  # noqa: E402
+from app.backend.models import Base  # noqa: E402  -- imports all models
 
 config = context.config
-config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
+config.set_main_option(
+    "sqlalchemy.url", os.environ.get("DATABASE_URL") or settings.DATABASE_URL
+)
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)

@@ -1,13 +1,11 @@
 import math
 from datetime import datetime, timezone
-from typing import Optional
 from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, text
 
 from app.backend.core.events import MATCH_CREATED, publish_event
-from app.backend.models.user import User
 from app.backend.models.profile import PublicProfile
 from app.backend.models.preference import UserPreference
 from app.backend.models.match import Match
@@ -89,7 +87,7 @@ class MatchingService:
         user_prefs = user_pref_result.scalar_one_or_none()
 
         user_profile_result = await self.db.execute(
-            select(PublicProfile).where(PublicProfile.user_id == user_id)
+            select(PublicProfile).where(PublicProfile.user_id == user_id)  # noqa: F823
         )
         user_profile = user_profile_result.scalar_one_or_none()
 
@@ -142,7 +140,7 @@ class MatchingService:
             result = await self.db.execute(
                 select(PublicProfile)
                 .where(PublicProfile.user_id != user_id)
-                .where(PublicProfile.is_visible == True)
+                .where(PublicProfile.is_visible.is_(True))
                 .limit(200)
             )
 

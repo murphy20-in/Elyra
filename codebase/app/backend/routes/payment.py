@@ -1,4 +1,3 @@
-from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, status, Query, Request
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -12,7 +11,6 @@ from app.backend.schemas.payment import (
     SubscribeRequest,
     PaymentResponse,
     SubscriptionResponse,
-    PaymentWebhookRequest,
     SubscriptionPlan,
 )
 

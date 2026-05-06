@@ -1,8 +1,7 @@
 import uuid
-from sqlalchemy import Float, Boolean, DateTime, ForeignKey, Index, UniqueConstraint, CheckConstraint, Enum as SQLEnum
+from sqlalchemy import Column, Float, Boolean, DateTime, ForeignKey, Index, UniqueConstraint, CheckConstraint, Enum as SQLEnum
 from sqlalchemy.dialects.postgresql import UUID as PGUUID
 from sqlalchemy.orm import relationship
-import sqlalchemy
 
 from app.backend.models.base import Base, TimestampMixin
 

@@ -58,13 +58,13 @@ async def list_reports(
 @router.patch("/reports/{report_id}", response_model=ReportResponse)
 async def update_report(
     report_id: UUID,
-    status: str,
+    report_status: str,
     user: User = Depends(require_role("moderator", "admin")),
     db: AsyncSession = Depends(get_db),
 ):
     try:
         svc = TrustSafetyService(db)
-        report = await svc.update_report_status(report_id, status, user.id)
+        report = await svc.update_report_status(report_id, report_status, user.id)
         return ReportResponse.model_validate(report)
     except ValueError as e:
         raise HTTPException(

@@ -1,14 +1,13 @@
-import asyncio
 import uuid
 from io import BytesIO
-from typing import Optional
 
 import httpx
 from PIL import Image
+
+from app.backend.core.config import settings
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
-from app.backend.core import config
 from app.backend.core.security import get_encryption_key, encrypt_field, decrypt_field
 from app.backend.core.events import PROFILE_UPDATED, PREFERENCES_UPDATED, publish_event
 from app.backend.models.profile import PublicProfile, PrivateProfile
@@ -217,7 +216,8 @@ class ProfileService:
             ratio = 1600 / max_dim
             new_width = int(img.width * ratio)
             new_height = int(img.height * ratio)
-            img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+            resized: Image.Image = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+            img = resized
 
         output = BytesIO()
         img.save(output, format="JPEG", quality=85)

@@ -1,15 +1,10 @@
-import pytest
 import pytest_asyncio
-import asyncio
-import uuid
 from typing import AsyncGenerator
 from httpx import AsyncClient, ASGITransport, Response
 from sqlalchemy.ext.asyncio import (
     create_async_engine, async_sessionmaker, AsyncSession
 )
-import fakeredis.aioredis
 import respx
-from unittest.mock import AsyncMock, patch
 
 import os
 os.environ.setdefault("DATABASE_URL",    "postgresql+asyncpg://elyra_user:elyra_test_pass@localhost:5433/elyra_test")
@@ -159,7 +154,7 @@ async def second_user_headers(client: AsyncClient) -> dict:
 
 @pytest_asyncio.fixture
 async def admin_headers(client: AsyncClient, db_session: AsyncSession) -> dict:
-    headers = await _register_and_get_headers(client, TEST_USER_ADMIN)
+    _ = await _register_and_get_headers(client, TEST_USER_ADMIN)
     from models.user import User
     from sqlalchemy import update
     await db_session.execute(
@@ -179,7 +174,7 @@ async def admin_headers(client: AsyncClient, db_session: AsyncSession) -> dict:
 @pytest_asyncio.fixture
 async def moderator_headers(client: AsyncClient, db_session: AsyncSession) -> dict:
     mod_data = {**TEST_USER_ADMIN, "email": "moderator@test.elyra.app"}
-    headers = await _register_and_get_headers(client, mod_data)
+    _ = await _register_and_get_headers(client, mod_data)
     from models.user import User
     from sqlalchemy import update
     await db_session.execute(

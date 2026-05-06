@@ -1,5 +1,3 @@
-from datetime import datetime
-from typing import Optional
 from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -37,7 +35,7 @@ class NotificationService:
         tokens_result = await self.db.execute(
             select(DeviceToken).where(
                 DeviceToken.user_id == user_id,
-                DeviceToken.is_active == True,
+                DeviceToken.is_active.is_(True),
             )
         )
         tokens = [t.token for t in tokens_result.scalars().all()]
@@ -85,7 +83,7 @@ class NotificationService:
         unread_result = await self.db.execute(
             select(func.count(Notification.id)).where(
                 Notification.user_id == user_id,
-                Notification.is_read == False,
+                Notification.is_read.is_(False),
             )
         )
         unread_count = unread_result.scalar()
@@ -118,7 +116,7 @@ class NotificationService:
         result = await self.db.execute(
             select(Notification).where(
                 Notification.user_id == user_id,
-                Notification.is_read == False,
+                Notification.is_read.is_(False),
             )
         )
         notifications = result.scalars().all()
@@ -132,7 +130,7 @@ class NotificationService:
         result = await self.db.execute(
             select(func.count(Notification.id)).where(
                 Notification.user_id == user_id,
-                Notification.is_read == False,
+                Notification.is_read.is_(False),
             )
         )
         return result.scalar()

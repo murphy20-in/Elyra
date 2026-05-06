@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import String, Text, ForeignKey, Index
+from sqlalchemy import Column, String, Text, ForeignKey, Index
 from sqlalchemy.dialects.postgresql import UUID as PGUUID
 from sqlalchemy.orm import relationship
 from pgvector.sqlalchemy import Vector

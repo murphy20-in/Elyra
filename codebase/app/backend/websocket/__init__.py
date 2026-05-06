@@ -1,1 +1,1 @@
-from .manager import sio, socket_app
+from .manager import sio, socket_app  # noqa: F401

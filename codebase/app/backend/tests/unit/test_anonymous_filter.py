@@ -1,7 +1,7 @@
 """Unit tests for websocket/anonymous.py AnonymousMessageFilter."""
 import pytest
 import fakeredis.aioredis
-from unittest.mock import patch, AsyncMock
+from unittest.mock import patch
 from websocket.anonymous import AnonymousMessageFilter
 
 pytestmark = pytest.mark.unit

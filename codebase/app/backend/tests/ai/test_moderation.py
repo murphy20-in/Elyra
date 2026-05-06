@@ -1,6 +1,7 @@
 """Tests for the moderation AI service (respx-mocked)."""
 import pytest
-import respx, httpx
+import respx
+import httpx
 from core.ai_client import AIClient
 from core.config import settings
 

@@ -1,8 +1,7 @@
 import uuid
-from sqlalchemy import Boolean, DateTime, ForeignKey, Index, Enum as SQLEnum, Numeric
+from sqlalchemy import Column, Boolean, DateTime, ForeignKey, Index, Enum as SQLEnum, func
 from sqlalchemy.dialects.postgresql import UUID as PGUUID
 from sqlalchemy.orm import relationship
-from decimal import Decimal
 
 from app.backend.models.base import Base, TimestampMixin
 
@@ -28,7 +27,7 @@ class Subscription(Base, TimestampMixin):
         default="active",
         nullable=False,
     )
-    started_at = Column(DateTime(timezone=True), server_default="now()", nullable=False)
+    started_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     expires_at = Column(DateTime(timezone=True), nullable=True)
     auto_renew = Column(Boolean, default=True)
 

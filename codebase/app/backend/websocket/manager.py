@@ -10,7 +10,6 @@ from app.backend.core.config import settings
 from app.backend.core.database import async_session
 from app.backend.core.metrics import ws_connections_active
 from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.backend.models.chat import ChatThread
 
@@ -20,7 +19,6 @@ from .presence import (
     set_online,
     set_offline,
     get_user_id_for_sid,
-    is_online,
     refresh_heartbeat,
 )
 
@@ -93,7 +91,7 @@ async def connect(sid: str, environ: dict, auth: dict | None):
                 (ChatThread.participant_1 == user_id)
                 | (ChatThread.participant_2 == user_id)
             )
-            .where(ChatThread.is_active == True)
+            .where(ChatThread.is_active.is_(True))
         )
         threads = result.scalars().all()
 
@@ -145,7 +143,7 @@ async def disconnect(sid: str):
                 (ChatThread.participant_1 == user_id)
                 | (ChatThread.participant_2 == user_id)
             )
-            .where(ChatThread.is_active == True)
+            .where(ChatThread.is_active.is_(True))
         )
         threads = result.scalars().all()
 

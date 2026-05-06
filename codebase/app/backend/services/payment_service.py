@@ -79,7 +79,7 @@ class PaymentService:
         if not plan:
             raise ValueError("Invalid tier")
 
-        amount = plan["price_yearly"] if data.billing_cycle == "yearly" else plan["price_monthly"]
+        amount = float(plan["price_yearly"] if data.billing_cycle == "yearly" else plan["price_monthly"])
         amount_paise = int(amount * 100)
 
         if amount_paise > 0:

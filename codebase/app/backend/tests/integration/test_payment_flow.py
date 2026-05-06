@@ -1,5 +1,8 @@
 """Integration: subscribe → webhook → tier upgrade."""
-import pytest, hmac, hashlib, json
+import pytest
+import hmac
+import hashlib
+import json
 
 pytestmark = [pytest.mark.integration, pytest.mark.slow]
 

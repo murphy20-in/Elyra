@@ -1,41 +1,11 @@
-from datetime import datetime
-from typing import Optional
-from uuid import UUID
+"""Preference schemas (re-exported by schemas.profile for the /profiles router)."""
+from __future__ import annotations
 
-from pydantic import BaseModel, ConfigDict
-
-
-class PreferenceCreate(BaseModel):
-    preferred_genders: list[str] = []
-    preferred_orientations: list[str] = []
-    age_min: int = 18
-    age_max: int = 50
-    max_distance_km: int = 50
-    preferred_intents: list[str] = []
-    deal_breakers: dict = {}
+from app.backend.schemas.profile import PreferenceResponse, PreferenceUpdate
 
 
-class PreferenceUpdate(BaseModel):
-    preferred_genders: Optional[list[str]] = None
-    preferred_orientations: Optional[list[str]] = None
-    age_min: Optional[int] = None
-    age_max: Optional[int] = None
-    max_distance_km: Optional[int] = None
-    preferred_intents: Optional[list[str]] = None
-    deal_breakers: Optional[dict] = None
+class PreferenceCreate(PreferenceUpdate):
+    """Same shape as PreferenceUpdate for now — preferences are upserted."""
 
 
-class PreferenceResponse(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
-    id: UUID
-    user_id: UUID
-    preferred_genders: list[str]
-    preferred_orientations: list[str]
-    age_min: int
-    age_max: int
-    max_distance_km: int
-    preferred_intents: list[str]
-    deal_breakers: dict
-    created_at: datetime
-    updated_at: Optional[datetime]
+__all__ = ["PreferenceCreate", "PreferenceResponse", "PreferenceUpdate"]

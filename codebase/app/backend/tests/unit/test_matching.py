@@ -1,6 +1,5 @@
 """Unit tests for services/matching_service.py scoring logic."""
 import pytest
-from unittest.mock import AsyncMock, MagicMock
 
 try:
     from services.matching_service import MatchingService
@@ -55,7 +54,6 @@ class TestCompositeScoring:
 
 class TestCandidateFiltering:
     def test_blocked_users_excluded(self):
-        svc = MatchingService.__new__(MatchingService)
         block_ids = {"blocked-user-uuid"}
         candidates = [{"user_id": "blocked-user-uuid"}, {"user_id": "ok-user-uuid"}]
         filtered = [c for c in candidates if c["user_id"] not in block_ids]

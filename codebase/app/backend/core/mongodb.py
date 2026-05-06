@@ -1,4 +1,8 @@
+"""MongoDB async client + chat-message indexes."""
+from __future__ import annotations
+
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
+
 from app.backend.core.config import settings
 from app.backend.models.chat_message import MONGO_INDEXES
 
@@ -15,9 +19,17 @@ async def connect_mongodb() -> None:
 
 
 async def disconnect_mongodb() -> None:
-    global _client
-    if _client:
+    global _client, _db
+    if _client is not None:
         _client.close()
+    _client = None
+    _db = None
+
+
+def get_mongo_client() -> AsyncIOMotorClient:
+    if _client is None:
+        raise RuntimeError("MongoDB not connected. Call connect_mongodb() first.")
+    return _client
 
 
 async def get_mongo_db() -> AsyncIOMotorDatabase:

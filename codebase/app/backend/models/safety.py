@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import String, Text, Boolean, Float, DateTime, ForeignKey, Index, UniqueConstraint, Enum as SQLEnum
+from sqlalchemy import Column, Text, Boolean, Float, DateTime, ForeignKey, Index, UniqueConstraint, Enum as SQLEnum
 from sqlalchemy.dialects.postgresql import UUID as PGUUID, JSONB
 from sqlalchemy.orm import relationship
 

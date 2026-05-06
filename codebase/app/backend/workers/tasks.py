@@ -1,8 +1,7 @@
 from datetime import datetime, timezone
-from celery import chain
 
 from app.backend.workers.celery_app import celery_app
-from app.backend.core.sync_database import get_sync_db, sync_engine
+from app.backend.core.sync_database import get_sync_db
 from app.backend.core.config import settings
 from app.backend.models.user import User
 from app.backend.models.profile import PublicProfile
@@ -162,7 +161,6 @@ def recompute_risk_scores():
         ).distinct().all()
 
         for (user_id,) in users_with_reports:
-            from app.backend.services.trust_safety_service import TrustSafetyService
 
             pass
 
@@ -233,7 +231,6 @@ def score_new_profile(self, user_id: str, email: str):
     from datetime import datetime, timezone
     from app.backend.core.config import settings
     from app.backend.core.sync_database import SyncSession
-    from app.backend.models.user import User
     from app.backend.models.profile import PublicProfile
     from app.backend.models.embedding import UserEmbedding
     from app.backend.models.audit import AuditLog

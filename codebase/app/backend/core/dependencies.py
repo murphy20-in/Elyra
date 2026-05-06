@@ -1,5 +1,3 @@
-from datetime import datetime, timezone
-from typing import Optional
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
@@ -7,7 +5,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, text
 
 from app.backend.core.database import get_db
-from app.backend.core.redis_client import get_redis
 from app.backend.core.security import decode_token
 from app.backend.models.user import User
 

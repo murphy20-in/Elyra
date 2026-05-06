@@ -1,8 +1,7 @@
 import uuid
-from sqlalchemy import String, Boolean, Integer, DateTime, Index, Enum as SQLEnum
+from sqlalchemy import Column, String, Boolean, Integer, DateTime, Index, Enum as SQLEnum
 from sqlalchemy.dialects.postgresql import UUID as PGUUID
 from sqlalchemy.orm import relationship
-from sqlalchemy import ForeignKey
 
 from app.backend.models.base import Base, TimestampMixin
 

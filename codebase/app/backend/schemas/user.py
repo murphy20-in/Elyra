@@ -1,8 +1,11 @@
+"""User-related Pydantic schemas (re-exports auth user shape)."""
+from __future__ import annotations
+
 from datetime import datetime
 from typing import Optional
 from uuid import UUID
 
-from pydantic import EmailStr, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
 
 class UserCreate(BaseModel):
@@ -22,15 +25,15 @@ class UserResponse(BaseModel):
 
     id: UUID
     email: str
-    phone: Optional[str]
+    phone: Optional[str] = None
     role: str
     is_active: bool
     is_verified: bool
     email_verified: bool
     phone_verified: bool
     is_banned: bool
-    last_login: Optional[datetime]
-    last_seen: Optional[datetime]
+    last_login: Optional[datetime] = None
+    last_seen: Optional[datetime] = None
     created_at: datetime
 
 

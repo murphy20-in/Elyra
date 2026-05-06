@@ -60,8 +60,6 @@ async def list_matches(
 ):
     from sqlalchemy import select, or_
     from app.backend.models.match import Match
-    from app.backend.schemas.profile import PublicProfileResponse
-    from sqlalchemy.orm import selectinload
 
     offset = (page - 1) * per_page
 

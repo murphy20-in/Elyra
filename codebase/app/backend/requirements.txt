@@ -13,7 +13,6 @@ email-validator==2.1.1
 python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
 cryptography==42.0.8
-celery==5.4.0
 celery[redis]==5.4.0
 httpx==0.27.0
 python-socketio[asyncio]==5.11.3
@@ -28,4 +27,3 @@ twilio==9.2.2
 firebase-admin==6.5.0
 razorpay==1.4.2
 psycopg2-binary==2.9.9
-secrets==0.1.0
