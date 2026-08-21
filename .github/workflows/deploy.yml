@@ -1,13 +1,14 @@
-name: Deploy Elyra PWA to GitHub Pages
+name: Deploy Elyra site to GitHub Pages
 
-# The app lives in a subdirectory of the repository, so every step runs
-# with basecodebase/ as its working directory and paths are filtered to
-# it — pushes that only touch the backend shouldn't redeploy the client.
+# Static site: the landing-page prototype (basecodebase/web) at the root
+# plus the interactive POC under /poc/. Pushes that only touch the backend
+# shouldn't redeploy the client.
 on:
   push:
     branches: [main]
     paths:
       - "basecodebase/**"
+      - "POC/POC version/Final POC/**"
       - ".github/workflows/deploy.yml"
   workflow_dispatch:
 
@@ -21,59 +22,29 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
-defaults:
-  run:
-    working-directory: basecodebase
-
 jobs:
-  verify:
-    name: Lint, test and build
+  build:
+    name: Build static site
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-          cache-dependency-path: basecodebase/package-lock.json
+      - name: Stage landing page
+        run: cp -r basecodebase/web/. _site/
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Lint
-        run: npm run lint
-
-      - name: Unit tests
-        run: npm test
-
-      - name: Build
-        run: npm run build
-
-      # The Playwright config pins channel "chrome", so install Google
-      # Chrome stable rather than the bundled Chromium build.
-      - name: Install Playwright browser
-        run: npx playwright install --with-deps chrome
-
-      - name: End-to-end tests
-        run: npx playwright test --project=desktop-chrome
-
-      - name: Upload test report on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-report
-          path: basecodebase/playwright-report/
-          retention-days: 7
+      - name: Stage interactive POC
+        run: |
+          mkdir -p _site/poc
+          cp "POC/POC version/Final POC/"* _site/poc/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: basecodebase/dist
+          path: _site
 
   deploy:
     name: Deploy
-    needs: verify
+    needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
