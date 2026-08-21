@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# No sitemap: Elyra is a single-page app whose routes are hash fragments,
+# which crawlers do not index as separate pages.

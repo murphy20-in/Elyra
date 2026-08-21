@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Elyra — page not found</title>
+    <meta name="theme-color" content="#05070c" />
+    <meta name="robots" content="noindex" />
+    <script>
+      /*
+       * GitHub Pages serves this file for any path it cannot resolve.
+       *
+       * Elyra routes on the URL hash, so real deep links never land here:
+       * /elyra/#/chats/abc resolves /elyra/ on the host and the app reads
+       * the hash itself. This page therefore only sees genuinely wrong
+       * paths, and its whole job is to find the site root and go there
+       * rather than leaving someone on a dead end.
+       *
+       * Finding that root without hardcoding a repository name:
+       *   - On *.github.io the first path segment is the project name for
+       *     a project site (user.github.io/elyra/...). A user or org site
+       *     (user.github.io/...) has no project segment.
+       *   - On any other host — a custom domain — the site is at "/".
+       */
+      (function redirectToRoot() {
+        var KEY = "elyra:404-redirected";
+
+        // One retry only. If the computed root is also missing we must not
+        // bounce forever; fall through to the static message below.
+        try {
+          if (sessionStorage.getItem(KEY)) {
+            sessionStorage.removeItem(KEY);
+            return;
+          }
+          sessionStorage.setItem(KEY, "1");
+        } catch (error) {
+          void error; // storage unavailable: proceed without loop protection
+        }
+
+        var root = "/";
+        if (/\.github\.io$/i.test(window.location.hostname)) {
+          var first = window.location.pathname.split("/")[1];
+          // A trailing file name like "index.html" is not a project segment
+          if (first && first.indexOf(".") === -1) root = "/" + first + "/";
+        }
+
+        window.location.replace(root + (window.location.hash || "#/"));
+      })();
+    </script>
+  </head>
+  <body style="margin:0;background:#05070c;color:#f7f4ee;font-family:system-ui,-apple-system,sans-serif">
+    <div style="max-width:34rem;margin:20vh auto;padding:24px;text-align:center">
+      <h1 style="font-size:1.4rem;font-weight:700">That page doesn't exist</h1>
+      <p style="color:#8791a1;line-height:1.6">
+        The link may be out of date. Elyra itself is fine — everything you saved is still there.
+      </p>
+      <p style="margin-top:20px">
+        <a href="/" style="color:#ffc56e;font-weight:700">Open Elyra</a>
+      </p>
+    </div>
+  </body>
+</html>

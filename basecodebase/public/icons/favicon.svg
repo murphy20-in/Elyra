@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Elyra">
+  <defs>
+    <linearGradient id="warm" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff2d6"/>
+      <stop offset="0.55" stop-color="#ffc56e"/>
+      <stop offset="1" stop-color="#ff6f8e"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#05070c"/>
+  <rect x="4" y="4" width="56" height="56" rx="13" fill="url(#warm)"/>
+  <!-- Two offset bars read as the public and private layers, and together
+       with the stem form an E that stays legible at 32px. -->
+  <rect x="19" y="17" width="26" height="6.5" rx="3.25" fill="#1a1108"/>
+  <rect x="19" y="28.75" width="19" height="6.5" rx="3.25" fill="#1a1108" opacity="0.55"/>
+  <rect x="19" y="40.5" width="26" height="6.5" rx="3.25" fill="#1a1108"/>
+</svg>

@@ -1,0 +1,731 @@
+/* ============================================================
+   ELYRA · LANDING PAGE
+   Section-by-section composition. Shared pieces (buttons, cards,
+   nav, footer) come from components.css.
+   ============================================================ */
+
+/* ============================================================
+   SECTION RHYTHM
+   Every landing section shares vertical rhythm and a hairline
+   top divider that fades out at both edges.
+   ============================================================ */
+.section {
+  position: relative;
+  padding: 110px 0;
+}
+
+.section + .section::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--stroke), transparent);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  display: grid;
+  align-items: center;
+  gap: 60px;
+  padding: calc(var(--nav-height) + 90px) 0 100px;
+  grid-template-columns: 1.05fr 0.95fr;
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.hero-assurance {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.hero-assurance svg {
+  width: 15px;
+  height: 15px;
+  color: var(--green);
+  flex-shrink: 0;
+}
+
+/* --- Proof row: the three numbers under the fold --- */
+.proof-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.proof-row > div {
+  flex: 1 1 150px;
+  padding: 16px 18px;
+  border: 1px solid var(--stroke-soft);
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.03);
+  transition: border-color var(--t-med) var(--ease), background var(--t-med) var(--ease);
+}
+
+.proof-row > div:hover {
+  border-color: var(--stroke);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.proof-row strong {
+  display: block;
+  background: linear-gradient(115deg, var(--cream), var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.proof-row span {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* ============================================================
+   HERO STAGE — the dual-identity card, our signature visual
+   ============================================================ */
+.hero-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 520px;
+}
+
+.identity-card {
+  position: relative;
+  z-index: 2;
+  width: min(380px, 100%);
+  padding: 22px;
+  border: 1px solid var(--stroke-strong);
+  border-radius: var(--r-xl);
+  background: var(--glass-strong);
+  box-shadow: var(--shadow-lg), var(--hairlight);
+  backdrop-filter: var(--blur-strong);
+  -webkit-backdrop-filter: var(--blur-strong);
+}
+
+.identity-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.layer-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--teal);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.layer-label svg {
+  width: 13px;
+  height: 13px;
+}
+
+.layer-label.private {
+  color: var(--coral);
+}
+
+.identity-person {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--teal), var(--blue));
+  color: #071016;
+  font-weight: 800;
+  font-size: 1.1rem;
+  box-shadow: 0 12px 30px rgba(67, 226, 208, 0.24);
+}
+
+.avatar.coral {
+  background: linear-gradient(135deg, var(--coral), var(--gold));
+  color: #1a0a0e;
+  box-shadow: 0 12px 30px rgba(255, 111, 142, 0.24);
+}
+
+.identity-person strong {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.identity-person small {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.identity-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 18px;
+}
+
+/* --- The locked private layer --- */
+.private-layer {
+  position: relative;
+  margin-top: 18px;
+  padding: 18px;
+  border: 1px dashed rgba(255, 111, 142, 0.34);
+  border-radius: var(--r-md);
+  background: rgba(255, 111, 142, 0.05);
+  overflow: hidden;
+}
+
+.secret-line {
+  height: 9px;
+  margin-top: 10px;
+  border-radius: var(--r-pill);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+  filter: blur(2.5px);
+}
+
+.secret-line.short {
+  width: 62%;
+}
+
+.reveal-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  color: var(--coral);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.reveal-note svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* --- Floating annotations around the card --- */
+.floating-note {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 15px;
+  border: 1px solid var(--stroke-strong);
+  border-radius: var(--r-pill);
+  background: var(--glass-strong);
+  box-shadow: var(--shadow), var(--hairlight);
+  color: var(--soft);
+  font-size: 0.79rem;
+  font-weight: 700;
+  white-space: nowrap;
+  backdrop-filter: var(--blur-strong);
+  -webkit-backdrop-filter: var(--blur-strong);
+  animation: floatNote 5.5s ease-in-out infinite;
+}
+
+.floating-note svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.note-1 { top: 34px; left: -18px; color: var(--teal); }
+.note-2 { right: -14px; top: 66%; color: var(--gold); animation-delay: 0.9s; }
+.note-3 { bottom: 40px; left: -6px; color: var(--violet); animation-delay: 1.8s; }
+
+@keyframes floatNote {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-9px); }
+}
+
+/* ============================================================
+   TRUST BAR
+   ============================================================ */
+.trust-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px 46px;
+  padding: 26px 0 0;
+  flex-wrap: wrap;
+}
+
+.trust-bar span {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--faint);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.trust-bar svg {
+  width: 16px;
+  height: 16px;
+  color: var(--muted);
+}
+
+/* ============================================================
+   PROBLEM
+   ============================================================ */
+.problem-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.problem-card h3 {
+  margin: 18px 0 10px;
+}
+
+.problem-card p {
+  color: var(--muted);
+  font-size: 0.93rem;
+  line-height: 1.7;
+}
+
+.problem-stat {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--red);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   HOW IT WORKS — numbered steps
+   ============================================================ */
+.steps {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  counter-reset: step;
+}
+
+.step {
+  position: relative;
+  counter-increment: step;
+}
+
+.step::before {
+  content: counter(step, decimal-leading-zero);
+  display: block;
+  margin-bottom: 16px;
+  background: linear-gradient(115deg, var(--cream), var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-family: "Instrument Serif", serif;
+  font-size: 2.6rem;
+  line-height: 1;
+}
+
+.step h3 {
+  margin-bottom: 10px;
+}
+
+.step p {
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.7;
+}
+
+/* ============================================================
+   FEATURES
+   ============================================================ */
+.feature-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* The first card spans two columns — it carries the flagship feature */
+.feature-card.wide {
+  grid-column: span 2;
+}
+
+.feature-card h3 {
+  margin: 20px 0 10px;
+}
+
+.feature-card p {
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.7;
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-top: 18px;
+}
+
+.feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--soft);
+  font-size: 0.89rem;
+}
+
+.feature-list svg {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  color: var(--green);
+}
+
+/* ============================================================
+   SAFETY — split layout with a live moderation vignette
+   ============================================================ */
+.safety-split {
+  display: grid;
+  align-items: center;
+  gap: 56px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.chat-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 22px;
+}
+
+.chat-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--stroke-soft);
+}
+
+.bubble {
+  max-width: 82%;
+  padding: 12px 16px;
+  border-radius: var(--r-md);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.bubble.them {
+  align-self: flex-start;
+  border: 1px solid var(--stroke);
+  border-bottom-left-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--soft);
+}
+
+.bubble.me {
+  align-self: flex-end;
+  border-bottom-right-radius: 6px;
+  background: linear-gradient(135deg, var(--cream), var(--gold));
+  color: #1a1108;
+  font-weight: 600;
+}
+
+/* A message the moderation layer held back */
+.bubble.blocked {
+  align-self: flex-start;
+  border: 1px dashed rgba(255, 89, 103, 0.4);
+  background: rgba(255, 89, 103, 0.07);
+  color: var(--muted);
+  font-style: italic;
+}
+
+.moderation-flag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  padding: 8px 13px;
+  border: 1px solid rgba(255, 209, 102, 0.28);
+  border-radius: var(--r-pill);
+  background: rgba(255, 209, 102, 0.08);
+  color: var(--warning);
+  font-size: 0.77rem;
+  font-weight: 700;
+}
+
+.moderation-flag svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   PRICING
+   ============================================================ */
+.pricing-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: start;
+}
+
+.plan {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* The recommended plan lifts and takes the warm border */
+.plan.featured {
+  border-color: rgba(255, 197, 110, 0.4);
+  background: linear-gradient(180deg, rgba(255, 197, 110, 0.08), var(--panel) 40%);
+  box-shadow: 0 30px 90px rgba(255, 197, 110, 0.12), var(--hairlight);
+}
+
+.plan-badge {
+  position: absolute;
+  top: -11px;
+  left: 26px;
+  padding: 4px 12px;
+  border-radius: var(--r-pill);
+  background: linear-gradient(135deg, var(--cream), var(--gold));
+  color: #1a1108;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-family: "Instrument Serif", serif;
+  font-size: 3rem;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.plan-price small {
+  color: var(--muted);
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.plan-features {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.plan-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--soft);
+  font-size: 0.9rem;
+}
+
+.plan-features svg {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  color: var(--green);
+}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 860px;
+  margin-inline: auto;
+}
+
+.faq-item {
+  padding: 0;
+  overflow: hidden;
+}
+
+.faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 26px;
+  cursor: pointer;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "";
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  border-right: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+  transform: rotate(45deg) translate(-2px, -2px);
+  transition: transform var(--t-med) var(--ease);
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(-135deg) translate(-3px, -3px);
+}
+
+.faq-item p {
+  padding: 0 26px 24px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+/* ============================================================
+   FINAL CTA
+   ============================================================ */
+.cta-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  padding: 74px 40px;
+  text-align: center;
+  border-radius: var(--r-xl);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 197, 110, 0.16), transparent 60%),
+    var(--panel);
+  overflow: hidden;
+}
+
+.cta-panel h2 {
+  margin: 0;
+}
+
+.cta-panel .lede {
+  margin-inline: auto;
+}
+
+.cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1040px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 70px;
+    padding-top: calc(var(--nav-height) + 60px);
+  }
+
+  .hero-copy {
+    align-items: flex-start;
+  }
+
+  .safety-split {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .problem-grid,
+  .steps,
+  .feature-grid,
+  .pricing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .feature-card.wide {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 720px) {
+  .section {
+    padding: 78px 0;
+  }
+
+  .problem-grid,
+  .steps,
+  .feature-grid,
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card.wide {
+    grid-column: span 1;
+  }
+
+  .hero-stage {
+    min-height: 460px;
+  }
+
+  /* Floating notes crowd the card on narrow screens */
+  .note-1, .note-3 {
+    left: -4px;
+  }
+
+  .note-2 {
+    right: -4px;
+  }
+
+  .cta-panel {
+    padding: 52px 24px;
+  }
+
+  .hero-actions .btn {
+    flex: 1 1 100%;
+  }
+}

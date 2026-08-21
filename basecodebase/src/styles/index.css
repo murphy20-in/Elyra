@@ -1,0 +1,7 @@
+/* Elyra design system — import order is load-bearing: tokens define the
+   variables every later file consumes. */
+@import "./tokens.css";
+@import "./base.css";
+@import "./shell.css";
+@import "./components.css";
+@import "./pages.css";

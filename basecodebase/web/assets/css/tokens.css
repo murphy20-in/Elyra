@@ -1,0 +1,82 @@
+/* ============================================================
+   ELYRA · DESIGN TOKENS
+   The single source of truth for surface, colour, motion and
+   shape. Every other stylesheet consumes these — no raw hex
+   values live outside this file.
+
+   Inherited from the investor POC so the product and the pitch
+   speak with one voice.
+   ============================================================ */
+
+:root {
+  /* --- Surface -------------------------------------------------
+     Layered dark: `night` is the page floor, `ink` the raised
+     floor, and the glass tokens are the translucent panels that
+     float above both. */
+  --night: #05070c;
+  --ink: #0d1320;
+  --panel: rgba(255, 255, 255, 0.06);
+  --panel-strong: rgba(255, 255, 255, 0.10);
+  --glass: rgba(10, 14, 22, 0.58);
+  --glass-strong: rgba(10, 14, 22, 0.82);
+
+  /* --- Lines ---------------------------------------------------
+     `hairlight` is the lit top edge every piece of glass catches
+     from the light above it. Without it, panels read as flat. */
+  --stroke: rgba(255, 255, 255, 0.11);
+  --stroke-strong: rgba(255, 255, 255, 0.2);
+  --stroke-soft: rgba(255, 255, 255, 0.055);
+  --hairlight: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  /* --- Text ---------------------------------------------------- */
+  --text: #f8f5ed;
+  --soft: #c5cdd8;
+  --muted: #8791a1;
+  --faint: #596477;
+
+  /* --- Brand ---------------------------------------------------
+     One warm voice (cream -> gold), one trust hue (teal), one
+     heart hue (coral, used sparingly). Everything else is
+     semantic and should not be reached for decoratively. */
+  --cream: #fff2d6;
+  --gold: #ffc56e;
+  --coral: #ff6f8e;
+  --teal: #43e2d0;
+  --blue: #4fc7dd;
+  --violet: #8f8ae0;
+
+  /* --- Semantic ------------------------------------------------ */
+  --green: #71e6a4;
+  --red: #ff5967;
+  --warning: #ffd166;
+
+  /* --- Effects -------------------------------------------------- */
+  --shadow-sm: 0 12px 40px rgba(0, 0, 0, 0.22);
+  --shadow: 0 28px 90px rgba(0, 0, 0, 0.36);
+  --shadow-lg: 0 36px 120px rgba(0, 0, 0, 0.52);
+  --blur: blur(24px);
+  --blur-strong: blur(40px);
+
+  /* --- Radii ---------------------------------------------------- */
+  --r-pill: 999px;
+  --r-xl: 36px;
+  --r-lg: 26px;
+  --r-md: 18px;
+  --r-sm: 14px;
+
+  /* --- Motion ---------------------------------------------------
+     `ease-spring` overshoots slightly — reserve it for elements
+     that should feel physical (toggles, chips), never for text. */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.26, 0.44, 1);
+  --t-fast: 180ms;
+  --t-med: 320ms;
+  --t-slow: 720ms;
+
+  /* --- Layout --------------------------------------------------- */
+  --shell-width: 1220px;
+  --nav-height: 74px;
+
+  color-scheme: dark;
+}

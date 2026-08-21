@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <title>Elyra — Pehchaan Layer</title>
+    <meta name="description" content="A privacy-first way to connect, explore identity, and build real connections. Built for India's LGBTQIA+ community." />
+
+    <meta name="theme-color" content="#05070c" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- iOS standalone support: Safari ignores the manifest for these -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Elyra" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Elyra — Pehchaan Layer" />
+    <meta property="og:description" content="Privacy-first connection for India's LGBTQIA+ community. Dual-identity profiles, intent-based matching, and real safety tools." />
+
+    <link rel="icon" href="icons/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"
+    />
+
+    <script>
+      // Flip before first paint so CSS can distinguish a JS-capable client.
+      document.documentElement.classList.replace("no-js", "js");
+    </script>
+  </head>
+
+  <body data-chrome="app">
+    <div id="app">
+      <!-- Replaced by the shell on boot. Visible only if JS is disabled
+           or the bundle fails to load, so it has to say something useful. -->
+      <noscript>
+        <div style="max-width:34rem;margin:20vh auto;padding:24px;text-align:center;font-family:system-ui,sans-serif;color:#f7f4ee">
+          <h1 style="font-size:1.4rem">Elyra needs JavaScript</h1>
+          <p style="color:#8791a1;line-height:1.6">
+            This app runs entirely in your browser — your profile, matches and
+            messages are stored on this device. That requires JavaScript to be
+            enabled.
+          </p>
+        </div>
+      </noscript>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,207 @@
+/* ============================================================
+   APPLICATION SHELL
+   Mobile-first: top bar + content + bottom tabs. The sidebar
+   appears only once there is width to justify it.
+   ============================================================ */
+
+.app-shell {
+  display: flex;
+  min-height: 100dvh;
+}
+
+/* Onboarding renders without chrome */
+body[data-chrome="bare"] .app-sidebar,
+body[data-chrome="bare"] .app-topbar,
+body[data-chrome="bare"] .app-tabbar { display: none; }
+
+body[data-chrome="bare"] .app-body { padding-bottom: 0; }
+body[data-chrome="bare"] .app-main {
+  padding: 0;
+  height: 100dvh;
+}
+
+/* --- Sidebar (desktop only) --- */
+.app-sidebar {
+  display: none;
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-6) var(--space-4);
+  border-right: 1px solid var(--color-border-soft);
+  background: rgba(6, 8, 13, 0.5);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-inline: var(--space-2);
+}
+
+.brand-sigil {
+  display: grid;
+  place-items: center;
+  width: 38px; height: 38px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--color-primary-soft), var(--color-primary) 55%, var(--color-accent));
+  color: var(--color-on-primary);
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  box-shadow: 0 8px 22px rgba(255, 197, 110, 0.26);
+}
+
+.brand-stack { display: flex; flex-direction: column; line-height: 1.15; }
+.brand-stack strong { font-size: 1rem; font-weight: 800; letter-spacing: -0.03em; }
+.brand-stack small { color: var(--color-muted); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+
+.sidebar-nav { display: flex; flex-direction: column; gap: 2px; }
+.nav-divider { margin: var(--space-3) var(--space-2); border: 0; border-top: 1px solid var(--color-border-soft); }
+
+/* --- Nav items, shared by sidebar and tab bar --- */
+.nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 11px var(--space-3);
+  border-radius: var(--radius-md);
+  color: var(--color-muted);
+  font-size: 0.94rem;
+  font-weight: 600;
+  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+.nav-item:hover { background: var(--color-surface); color: var(--color-text); }
+.nav-item.is-active { background: var(--color-surface-strong); color: var(--color-text); }
+.nav-glyph { display: grid; place-items: center; }
+.nav-glyph svg { width: 21px; height: 21px; }
+
+.nav-badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 19px; height: 19px;
+  padding-inline: 5px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: #24070f;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+/* --- Body column --- */
+.app-body {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  /* Reserve the tab bar's space here rather than inside the scroll area.
+     That keeps .app-main's box ending exactly where the bar begins, so a
+     full-height child (the chat thread) can simply be height: 100%. */
+  padding-bottom: calc(var(--tabbar-height) + var(--safe-bottom));
+}
+
+.app-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: var(--topbar-height);
+  padding: var(--space-2) var(--space-4);
+  padding-top: calc(var(--space-2) + var(--safe-top));
+  border-bottom: 1px solid var(--color-border-soft);
+  background: rgba(5, 7, 12, 0.82);
+  backdrop-filter: saturate(1.4) var(--blur);
+  -webkit-backdrop-filter: saturate(1.4) var(--blur);
+}
+
+.topbar-lead { display: flex; align-items: center; gap: var(--space-2); min-width: 0; }
+.topbar-titles { min-width: 0; }
+.topbar-titles h1 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.topbar-titles p { color: var(--color-muted); font-size: 0.76rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.topbar-actions { display: flex; align-items: center; gap: var(--space-2); }
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 40px; height: 40px;
+  flex-shrink: 0;
+  border-radius: var(--radius-pill);
+  color: var(--color-soft);
+  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+.icon-btn:hover { background: var(--color-surface); color: var(--color-text); }
+.icon-btn svg { width: 20px; height: 20px; }
+
+/* --- Banner (offline / update) --- */
+.app-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 10px var(--space-4);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.app-banner span { display: inline-flex; align-items: center; gap: var(--space-2); }
+.app-banner svg { width: 16px; height: 16px; flex-shrink: 0; }
+.app-banner.tone-warning { background: rgba(255, 209, 102, 0.12); color: var(--color-warning); }
+.app-banner.tone-info { background: rgba(79, 199, 221, 0.12); color: var(--color-info); }
+
+/* --- Main scroll region --- */
+.app-main {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+}
+.app-main:focus { outline: none; }
+
+/* The chat thread manages its own internal scrolling and must fill the
+   column exactly, so the composer pins to the bottom edge. */
+body[data-view="thread"] .app-main { overflow: hidden; }
+
+/* --- Bottom tab bar (mobile) --- */
+.app-tabbar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  padding: var(--space-2) var(--space-2);
+  padding-bottom: calc(var(--space-2) + var(--safe-bottom));
+  border-top: 1px solid var(--color-border-soft);
+  background: rgba(5, 7, 12, 0.9);
+  backdrop-filter: saturate(1.4) var(--blur);
+  -webkit-backdrop-filter: saturate(1.4) var(--blur);
+}
+
+.app-tabbar .nav-item {
+  flex-direction: column;
+  gap: 3px;
+  padding: 7px 2px;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+.app-tabbar .nav-item.is-active { background: transparent; color: var(--color-primary); }
+.app-tabbar .nav-glyph svg { width: 22px; height: 22px; }
+.app-tabbar .nav-badge {
+  position: absolute;
+  top: 2px;
+  left: 54%;
+}
+
+/* ============================================================
+   DESKTOP
+   ============================================================ */
+@media (min-width: 900px) {
+  .app-sidebar { display: flex; }
+  .app-tabbar { display: none; }
+  .app-body { padding-bottom: 0; }
+  .app-topbar { padding-inline: var(--space-8); }
+  h1 { font-size: 1.5rem; }
+}
