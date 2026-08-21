@@ -15,6 +15,246 @@
     "mtime": 1777745144.0,
     "hash": "22137b7384fc6d314a2c206a5bcb2ca7"
   },
+  "/home/kaarthikeya/Elyra-main/basecodebase/vitest.config.js": {
+    "mtime": 1787295334.3665802,
+    "hash": "1e87a0a6fa9f5466d8b6062b0e9f1eb1"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/eslint.config.js": {
+    "mtime": 1787296669.77458,
+    "hash": "99f089385ab4b5b76d41fb234519088f"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/vite.config.js": {
+    "mtime": 1787295334.36484,
+    "hash": "2000b4e0dfe9460cd4d758c307655ef9"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/playwright.config.js": {
+    "mtime": 1787295334.3698401,
+    "hash": "e7190bde17245cec076df210a783c2b7"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/tests/unit/router.test.js": {
+    "mtime": 1787297852.056445,
+    "hash": "0eef60d81af798b4c97cdb217f2604ea"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/tests/unit/format.test.js": {
+    "mtime": 1787297852.0578554,
+    "hash": "d988d7a3782b009a83327dbe3a41bb8d"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/tests/unit/moderation.test.js": {
+    "mtime": 1787297820.6756978,
+    "hash": "51d9202f1e3bb8c27503f7ea3b7b16ed"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/tests/unit/safety.test.js": {
+    "mtime": 1787297911.3276122,
+    "hash": "a6a3865cc8e97637da4c49a3febc73d7"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/tests/unit/setup.js": {
+    "mtime": 1787297820.6735103,
+    "hash": "7ea85313c9bd626a24f98057c406d70e"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/tests/unit/storage.test.js": {
+    "mtime": 1787297911.3266122,
+    "hash": "2a76ae3f8f404c7126e576a9d0bab5e8"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/tests/unit/validate.test.js": {
+    "mtime": 1787297852.0554447,
+    "hash": "59915cdb9f3e4368b3c2f5f408e10869"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/tests/unit/discovery.test.js": {
+    "mtime": 1787298495.1725175,
+    "hash": "492a0ecc6e0199b0ddaa4ca4029e86ba"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/tests/unit/chat.test.js": {
+    "mtime": 1787297911.3296123,
+    "hash": "a7ba8809fd8da24b3953458291ff5a5d"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/tests/unit/matching.test.js": {
+    "mtime": 1787297820.6748552,
+    "hash": "daabb5da6a758cbd3de0c0d3a28ee756"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/tests/e2e/helpers.js": {
+    "mtime": 1787300182.666311,
+    "hash": "bafcafbe30d707f7bee05ab1bb399904"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/tests/e2e/pwa.spec.js": {
+    "mtime": 1787299241.8970747,
+    "hash": "f30a5084966427e94d4bea935e123157"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/tests/e2e/journey.spec.js": {
+    "mtime": 1787300535.1798325,
+    "hash": "440b7f9cbf5ec9bca7f485a6f63a1cbd"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/main.js": {
+    "mtime": 1787300345.2249546,
+    "hash": "84dfd2c3ae099cba50221cd670818fc3"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/data/seed.js": {
+    "mtime": 1787295508.486845,
+    "hash": "14ac5bf7f69d8653a531d5d0054678a2"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/app/shell.js": {
+    "mtime": 1787295893.1438744,
+    "hash": "7f1382f4036676c34bc8bb1264f9e111"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/app/router.js": {
+    "mtime": 1787297381.5867157,
+    "hash": "c6612cba849f2037ef5d56a725f19dbd"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/app/pwa.js": {
+    "mtime": 1787295893.1447914,
+    "hash": "43669e68d8c4eca0e8ee0ddfce7b39d8"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/store/store.js": {
+    "mtime": 1787298859.0177965,
+    "hash": "bfe49ca866aefdef654a0230e0451091"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/adapters/local.adapter.js": {
+    "mtime": 1787295590.5184834,
+    "hash": "3a632dd8105ac2612cbd78b3acaf7c59"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/adapters/api.adapter.js": {
+    "mtime": 1787295613.5487647,
+    "hash": "63f8e4aa9a4c6cbf7f79d2848d2fbf52"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/components/toast.js": {
+    "mtime": 1787295819.892035,
+    "hash": "f81a9385e74299853bafa7d1b57283bb"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/components/dialog.js": {
+    "mtime": 1787295819.8930352,
+    "hash": "fc3da442d04f0ba7096861a6c8f29b9f"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/components/avatar.js": {
+    "mtime": 1787295855.2253525,
+    "hash": "08c9a24b446d4c1897a6ef8ec96f9d31"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/components/profile-card.js": {
+    "mtime": 1787295855.2273526,
+    "hash": "cda8688b35a8bd687f6c7eab32fabaaf"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/components/icons.js": {
+    "mtime": 1787295819.891035,
+    "hash": "e91e7d4e61c52df8d3de1df4e3d03891"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/components/states.js": {
+    "mtime": 1787295855.2263525,
+    "hash": "7624c9efd5a76e116e69bb6fd7c33244"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/pages/premium.js": {
+    "mtime": 1787296315.989273,
+    "hash": "5237fe56bcc9a9469bed2e166361593a"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/pages/safety.js": {
+    "mtime": 1787296252.3886704,
+    "hash": "d20ce6460e6c0b5f5170c6c703633fc2"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/pages/chats.js": {
+    "mtime": 1787298859.037619,
+    "hash": "4f83b9f22064859677e95a86dc7a9614"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/pages/discover.js": {
+    "mtime": 1787296015.1348228,
+    "hash": "84475cd7526f7a846f64c58c0ee73b5d"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/pages/matches.js": {
+    "mtime": 1787296041.6777813,
+    "hash": "92a2f13aa706252357bb8071dc72c36f"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/pages/profile.js": {
+    "mtime": 1787296155.792415,
+    "hash": "3ebaef391ea0854dedf0b3e323a8d5da"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/pages/settings.js": {
+    "mtime": 1787296669.7782106,
+    "hash": "3c986b58ed6c019ce5465920f04c81e3"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/pages/privacy.js": {
+    "mtime": 1787296185.7489264,
+    "hash": "b9d5d3461cbe9da72bbb351de52c3159"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/pages/onboarding.js": {
+    "mtime": 1787295964.4084163,
+    "hash": "523aafdfb3d3c35a600226c7aeb5b008"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/utils/moderation.js": {
+    "mtime": 1787295457.9135394,
+    "hash": "9e212bbb97aaa896bf0ce85c3db5442f"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/utils/id.js": {
+    "mtime": 1787295396.2444897,
+    "hash": "3b3c22c0b2abc6fb0e6ca6d5b28107a9"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/utils/db.js": {
+    "mtime": 1787298476.0952752,
+    "hash": "b035fce32bf06fe9221cf7c2958b9bd8"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/utils/validate.js": {
+    "mtime": 1787295457.9125392,
+    "hash": "bade0f0811337ce74394e1ad8176f0be"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/utils/format.js": {
+    "mtime": 1787295426.8813765,
+    "hash": "1b498d93663949d9207ce3b1fd8acaaf"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/utils/dom.js": {
+    "mtime": 1787299026.9310913,
+    "hash": "5bd9f90dc4f141a31857c6ac7a198a33"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/utils/config.js": {
+    "mtime": 1787295396.2437437,
+    "hash": "a236c1a2bf8e4704ab006eb466850d52"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/services/profile.service.js": {
+    "mtime": 1787295649.6115632,
+    "hash": "552a5b8c2e8edab3c3fd85c0ccf4657e"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/services/storage.service.js": {
+    "mtime": 1787295613.5496442,
+    "hash": "40ebe788cf86e7aaf5b4e16edee30679"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/services/matching.service.js": {
+    "mtime": 1787295541.777666,
+    "hash": "21725aad99cf7b04717e4514bfa71891"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/services/discovery.service.js": {
+    "mtime": 1787295691.384642,
+    "hash": "41d6f5424787f73bfb7be437bc2505ba"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/services/auth.service.js": {
+    "mtime": 1787295649.6096864,
+    "hash": "f6a9584cc69e0b551faca0e0d584f5ba"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/services/chat.service.js": {
+    "mtime": 1787295691.3854601,
+    "hash": "d9abe2a30bc672c65ea9e655e8ee9380"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/src/services/safety.service.js": {
+    "mtime": 1787295723.3374352,
+    "hash": "7ca8dc1a2d10d87dd91fea6c8d298081"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/web/assets/js/main.js": {
+    "mtime": 1787294084.3651204,
+    "hash": "035d3b12ba9932eb3d429ada3d696fd2"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/web/assets/js/core/api.js": {
+    "mtime": 1787294038.587365,
+    "hash": "ac55e467d1cc5ad3518e0f36752eb30c"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/web/assets/js/core/motion.js": {
+    "mtime": 1787294011.548328,
+    "hash": "a984568222703e57e51eaf4d71a07ec5"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/web/assets/js/core/dom.js": {
+    "mtime": 1787293990.2915127,
+    "hash": "fea13f4be05b90035e38cf63d3258135"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/web/assets/js/core/toast.js": {
+    "mtime": 1787293990.2929525,
+    "hash": "d9e0f6e332755d04a3186c9d69d6e5f5"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/web/assets/js/pages/landing.js": {
+    "mtime": 1787294361.6870985,
+    "hash": "1882e8f8f36934978a54e1fc9d7979f9"
+  },
   "/home/kaarthikeya/Elyra-main/codebase/tests/load/locustfile.py": {
     "mtime": 1778011496.2419398,
     "hash": "a7e655e52093b56e17bdc2bf61f35837"
@@ -611,6 +851,14 @@
     "mtime": 1778010477.4917889,
     "hash": "3067b962ed94601344df7cff2e7fb268"
   },
+  "/home/kaarthikeya/Elyra-main/README.md": {
+    "mtime": 1787294470.0880249,
+    "hash": "1d487aa6dc1c493f63ccefb3cd34c193"
+  },
+  "/home/kaarthikeya/Elyra-main/tree.md": {
+    "mtime": 1787294548.771888,
+    "hash": "1f406855d89862d9c44561f9961e2d9b"
+  },
   "/home/kaarthikeya/Elyra-main/CLAUDE.md": {
     "mtime": 1778133644.6859426,
     "hash": "8ee39dcfe68a23b3797b02648930d699"
@@ -734,6 +982,26 @@
   "/home/kaarthikeya/Elyra-main/plan/phase7_integration.md": {
     "mtime": 1777745144.0,
     "hash": "68e00969a35353e22eb52e3c1b84f3c5"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/README.md": {
+    "mtime": 1787300962.4084306,
+    "hash": "a8b4316886e88b8cf3762d626784e128"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/index.html": {
+    "mtime": 1787296610.41904,
+    "hash": "adcc8afc30e81bb8c46dab312ecec59c"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/public/404.html": {
+    "mtime": 1787300869.6120665,
+    "hash": "e2147bca295218a72ecce894c873d0e0"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/public/robots.txt": {
+    "mtime": 1787296610.42104,
+    "hash": "b468df9b4be5d5b2f69ff54932a1c62b"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/web/index.html": {
+    "mtime": 1787294424.1733062,
+    "hash": "7c8273824882ef2b9272c16b99a78315"
   },
   "/home/kaarthikeya/Elyra-main/audit/auditPrompt.md": {
     "mtime": 1778064383.6340022,
@@ -910,5 +1178,33 @@
   "/home/kaarthikeya/Elyra-main/POC/PPT/Elyra_Trust_OS.pdf": {
     "mtime": 1777809635.1468234,
     "hash": "cd43c65471a6e272fe0f9f016baa0158"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/public/icons/apple-touch-icon.png": {
+    "mtime": 1787296639.2750952,
+    "hash": "09db8793f99600dd05644fe66364daee"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/public/icons/icon-512.png": {
+    "mtime": 1787296638.9952369,
+    "hash": "6eda624246880022859eb5a3f711d583"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/public/icons/icon-32.png": {
+    "mtime": 1787296639.372577,
+    "hash": "eca36220f2b2b14b3944358ac6257c55"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/public/icons/favicon.svg": {
+    "mtime": 1787296638.1680548,
+    "hash": "8e7bce76b1ffd1cd92710579003c2a87"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/public/icons/maskable-192.png": {
+    "mtime": 1787296639.076088,
+    "hash": "0f9a420dab2542fb6d0f351faf7acacf"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/public/icons/maskable-512.png": {
+    "mtime": 1787296639.1920922,
+    "hash": "9cc99e271db955e6aac90f0b1c35bc33"
+  },
+  "/home/kaarthikeya/Elyra-main/basecodebase/public/icons/icon-192.png": {
+    "mtime": 1787296638.8770807,
+    "hash": "4ff15ea5b91e7ee39265c4a1444e7e15"
   }
 }
