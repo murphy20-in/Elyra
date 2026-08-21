@@ -39,7 +39,7 @@ socket_app = None
 
 def create_socket_app(fastapi_app):
     global socket_app
-    socket_app = socketio.ASGIApp(sio, other_app=fastapi_app)
+    socket_app = socketio.ASGIApp(sio, other_asgi_app=fastapi_app)
     return socket_app
 
 

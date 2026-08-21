@@ -146,11 +146,14 @@ class ProfileService:
             bio=profile.bio,
             city=profile.city,
             state=profile.state,
+            latitude=profile.latitude,
+            longitude=profile.longitude,
             intent=profile.intent,
             profile_photo_url=profile.profile_photo_url,
             photos=profile.photos or [],
             is_visible=profile.is_visible,
-            is_verified=False,
+            created_at=profile.created_at,
+            updated_at=profile.updated_at,
         )
 
     async def update_private_profile(

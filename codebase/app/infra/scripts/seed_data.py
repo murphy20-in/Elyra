@@ -46,7 +46,7 @@ async def seed():
     from app.backend.models.user import User
     from app.backend.models.profile import PublicProfile
     from app.backend.models.match import Match
-    from app.backend.models.chat_thread import ChatThread
+    from app.backend.models.chat import ChatThread
 
     from motor.motor_asyncio import AsyncIOMotorClient
     mongo_client = AsyncIOMotorClient(settings.MONGO_URL)
@@ -89,7 +89,7 @@ async def seed():
         for pair_idx, (i, j) in enumerate(MATCH_PAIRS):
             uid1, uid2 = user_ids[i], user_ids[j]
             lo, hi = (uid1, uid2) if str(uid1) < str(uid2) else (uid2, uid1)
-            match = Match(user_id_1=lo, user_id_2=hi, status="active", matched_at=datetime.utcnow())
+            match = Match(user_id_1=lo, user_id_2=hi, status="matched", matched_at=datetime.utcnow())
             session.add(match)
             await session.flush()
 
@@ -99,7 +99,6 @@ async def seed():
                     participant_1=uid1,
                     participant_2=uid2,
                     is_anonymous=False,
-                    status="active",
                     last_message_at=datetime.utcnow() - timedelta(minutes=pair_idx * 10),
                 )
                 session.add(thread)

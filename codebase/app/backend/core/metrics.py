@@ -1,13 +1,10 @@
 from fastapi import FastAPI
-from prometheus_fastapi_instrumentator import PrometheusInstrumentator
+from prometheus_fastapi_instrumentator import Instrumentator
 from prometheus_client import Counter, Histogram, Gauge
 
 from app.backend.core.config import settings
 
-instrumentator = PrometheusInstrumentator(
-    latency_highr=False,
-    group_paths=True,
-)
+instrumentator = Instrumentator()
 
 messages_sent_total = Counter(
     'elyra_messages_sent_total',

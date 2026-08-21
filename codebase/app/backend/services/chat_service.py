@@ -6,22 +6,147 @@ Uses Motor (async MongoDB driver).
 import logging
 from datetime import datetime
 from typing import Optional
+from uuid import UUID
 
 from bson import ObjectId
 from pymongo.errors import DuplicateKeyError
 
+from sqlalchemy import select, func
+
 from app.backend.core.mongodb import get_mongo_db
+from app.backend.models.chat import ChatThread
 
 logger = logging.getLogger(__name__)
 
 
 class ChatService:
     """
-    MongoDB CRUD operations for chat messages.
+    Thread management (PostgreSQL) + MongoDB CRUD operations for chat messages.
     """
 
-    def __init__(self):
+    def __init__(self, db=None, mongo_db=None):
+        self.db = db
+        self._mongo = mongo_db
         self._db = None
+
+    async def _get_db(self):
+        if self._db is None:
+            if self._mongo is not None:
+                self._db = self._mongo
+            else:
+                self._db = await get_mongo_db()
+        return self._db
+
+    # ── Thread helpers (PostgreSQL) ──────────────────────────────────────────
+
+    async def _get_thread_for_user(
+        self, thread_id: UUID | str, user_id: UUID | str
+    ) -> ChatThread:
+        result = await self.db.execute(
+            select(ChatThread).where(ChatThread.id == thread_id)
+        )
+        thread = result.scalar_one_or_none()
+        if not thread:
+            raise ValueError("Thread not found")
+        if user_id not in (thread.participant_1, thread.participant_2):
+            raise ValueError("Not a participant of this thread")
+        return thread
+
+    async def list_threads(
+        self, user_id: UUID, page: int = 1, per_page: int = 20
+    ) -> dict:
+        base = select(ChatThread).where(
+            (ChatThread.participant_1 == user_id)
+            | (ChatThread.participant_2 == user_id)
+        )
+        total_result = await self.db.execute(
+            select(func.count()).select_from(base.subquery())
+        )
+        total = total_result.scalar() or 0
+
+        result = await self.db.execute(
+            base.order_by(ChatThread.last_message_at.desc().nullslast())
+            .offset((page - 1) * per_page)
+            .limit(per_page)
+        )
+        threads = result.scalars().all()
+        return {"threads": threads, "total": total}
+
+    async def count_messages(self, thread_id: str) -> int:
+        db = await self._get_db()
+        return await db["messages"].count_documents(
+            {"thread_id": str(thread_id), "is_deleted": False}
+        )
+
+    async def send_message(
+        self,
+        thread_id: UUID,
+        sender_id: UUID,
+        content: str,
+        message_type: str = "text",
+        client_message_id: Optional[str] = None,
+    ) -> dict:
+        thread = await self._get_thread_for_user(thread_id, sender_id)
+
+        if client_message_id:
+            existing = await self.find_by_client_message_id(
+                str(thread_id), str(sender_id), client_message_id
+            )
+            if existing:
+                return existing
+
+        now = datetime.utcnow()
+        doc = {
+            "thread_id": str(thread_id),
+            "sender_id": str(sender_id),
+            "content": content,
+            "message_type": message_type,
+            "client_message_id": client_message_id or "",
+            "is_moderated": False,
+            "moderation_result": {},
+            "is_deleted": False,
+            "read_by": [],
+            "metadata": {},
+            "created_at": now,
+            "updated_at": now,
+        }
+        message_id = await self.save_message(doc)
+
+        thread.last_message_at = now
+        await self.db.commit()
+
+        # pymongo's insert_one injects an ObjectId _id into the dict
+        doc.pop("_id", None)
+        doc["id"] = message_id
+        return doc
+
+    async def mark_messages_read(self, thread_id: UUID, user_id: UUID) -> None:
+        await self._get_thread_for_user(thread_id, user_id)
+
+        db = await self._get_db()
+        unread = db["messages"].find(
+            {
+                "thread_id": str(thread_id),
+                "is_deleted": False,
+                "read_by": {"$ne": str(user_id)},
+            },
+            {"_id": 1},
+        )
+        message_ids = [str(d["_id"]) async for d in unread]
+        await self.mark_read(message_ids, str(user_id))
+
+    async def update_thread(
+        self,
+        thread_id: UUID,
+        user_id: UUID,
+        is_anonymous: Optional[bool] = None,
+    ) -> ChatThread:
+        thread = await self._get_thread_for_user(thread_id, user_id)
+        if is_anonymous is not None:
+            thread.is_anonymous = is_anonymous
+            await self.db.commit()
+            await self.db.refresh(thread)
+        return thread
 
     async def _get_db(self):
         if self._db is None:
@@ -74,30 +199,46 @@ class ChatService:
     async def get_messages(
         self,
         thread_id: str,
+        user_id: Optional[str] = None,
         page: int = 1,
         per_page: int = 50,
-    ) -> list[dict]:
+    ) -> dict:
         """
         Fetch paginated messages for a thread.
         Filter: { thread_id, is_deleted: False }
         Sort: created_at DESC
-        Skip: (page-1)*per_page  Limit: per_page
-        Returns list of dicts (ObjectId converted to str).
+        When user_id is provided, membership is verified first.
+        Returns {"messages": [...], "total": n, "page": p, "has_more": bool}.
         """
+        if user_id is not None:
+            await self._get_thread_for_user(thread_id, user_id)
+
         db = await self._get_db()
         messages = db["messages"]
 
+        total = await messages.count_documents(
+            {"thread_id": str(thread_id), "is_deleted": False}
+        )
+
         skip = (page - 1) * per_page
-        cursor = messages.find(
-            {"thread_id": thread_id, "is_deleted": False}
-        ).sort("created_at", -1).skip(skip).limit(per_page)
+        cursor = (
+            messages.find({"thread_id": str(thread_id), "is_deleted": False})
+            .sort("created_at", 1)
+            .skip(skip)
+            .limit(per_page)
+        )
 
         results = []
         async for doc in cursor:
             doc["id"] = str(doc.pop("_id"))
             results.append(doc)
 
-        return results
+        return {
+            "messages": results,
+            "total": total,
+            "page": page,
+            "has_more": skip + len(results) < total,
+        }
 
     async def update_moderation_result(self, message_id: str, result: dict):
         """

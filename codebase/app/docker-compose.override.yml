@@ -1,0 +1,63 @@
+# Local dev overrides:
+# - remap host ports occupied by system services (80 apache, 5432 system
+#   postgres, 9000-9004 jupyter kernel, 9099 minio console)
+# - point DATABASE_URL at the compose postgres (the .env default says localhost,
+#   which os.environ picks up inside containers)
+# - give celery the app.backend package mount the API container uses
+# - run the frontend from its production standalone build (the image has no
+#   devDependencies, so `npm run dev` cannot work)
+services:
+  postgres:
+    ports: !override
+      - "5433:5432"
+
+  minio:
+    ports: !override
+      - "19000:9000"
+      - "19099:9099"
+
+  embedding-service:
+    ports: !override
+      - "19001:9001"
+
+  moderation-service:
+    ports: !override
+      - "19002:9002"
+
+  image-service:
+    ports: !override
+      - "19003:9003"
+
+  fake-profile-service:
+    ports: !override
+      - "19004:9004"
+
+  nginx:
+    ports: !override
+      - "8080:80"
+
+  backend:
+    environment:
+      DATABASE_URL: postgresql+asyncpg://elyra_user:postgres_password_change_me@postgres:5432/elyra_db
+
+  celery-worker:
+    volumes:
+      - ./backend:/app/app/backend
+    environment:
+      DATABASE_URL: postgresql+asyncpg://elyra_user:postgres_password_change_me@postgres:5432/elyra_db
+    healthcheck:
+      disable: true
+
+  celery-beat:
+    volumes:
+      - ./backend:/app/app/backend
+    environment:
+      DATABASE_URL: postgresql+asyncpg://elyra_user:postgres_password_change_me@postgres:5432/elyra_db
+    healthcheck:
+      disable: true
+
+  frontend:
+    command: !override ["node", "server.js"]
+    volumes: !reset []
+    environment:
+      BACKEND_INTERNAL_URL: http://backend:8000

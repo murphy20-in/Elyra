@@ -5,8 +5,8 @@ RUN rm /etc/nginx/conf.d/default.conf
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Validate config at build time
-RUN nginx -t
+# NOTE: `nginx -t` cannot run at build time — upstream hostnames (backend,
+# frontend) only resolve inside the compose network at runtime.
 
 EXPOSE 80 443
 

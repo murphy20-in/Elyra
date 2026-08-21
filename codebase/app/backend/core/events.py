@@ -95,8 +95,12 @@ class EventSubscriber:
         try:
             await handler(data)
         except Exception as exc:
-            logger.error("event_handler_error",
-                         event=event_type, handler=handler.__name__, error=str(exc))
+            logger.error(
+                "event_handler_error",
+                event_type=event_type,
+                handler=handler.__name__,
+                error=str(exc),
+            )
 
 
 async def publish_event(event_type: str, payload: dict) -> None:
@@ -151,15 +155,42 @@ async def handle_update_embedding(data: dict):
 
 async def handle_send_email_verification(data: dict):
     """Triggered by: user.registered"""
-    from app.backend.services.email_service import EmailService
-    from app.backend.core.security import create_email_verification_token
+    import secrets
+    from datetime import datetime, timedelta, timezone
+
+    from sqlalchemy import select
+
+    from app.backend.core.database import get_async_session
+    from app.backend.core.security import hash_password
+    from app.backend.models.user import User
+    from app.backend.models.verification import EmailVerification
+    from app.backend.services.email_service import send_verification_email
+
     email = data.get("email")
     user_id = data.get("user_id")
-    if not email:
+    if not email or not user_id:
         return
-    token = create_email_verification_token(user_id)
-    email_svc = EmailService()
-    await email_svc.send_verification_email(email, token)
+
+    raw_token = secrets.token_urlsafe(32)
+    display_name = email
+    async with get_async_session() as session:
+        result = await session.execute(
+            select(User).where(User.id == uuid.UUID(user_id))
+        )
+        user = result.scalar_one_or_none()
+        if not user:
+            return
+        display_name = user.display_name if hasattr(user, "display_name") else email
+        session.add(
+            EmailVerification(
+                user_id=user.id,
+                token_hash=hash_password(raw_token),
+                expires_at=datetime.now(timezone.utc) + timedelta(hours=24),
+            )
+        )
+        await session.commit()
+
+    await send_verification_email(email, raw_token, display_name)
     logger.info("verification_email_sent", user_id=user_id)
 
 
@@ -170,14 +201,14 @@ async def handle_score_new_profile(data: dict):
     import uuid
     async with get_async_session() as session:
         svc = TrustSafetyService(session)
-        await svc.compute_risk_score(uuid.UUID(data["user_id"]))
+        await svc.calculate_risk_score(uuid.UUID(data["user_id"]))
     logger.info("initial_risk_score_computed", user_id=data.get("user_id"))
 
 
 async def handle_create_chat_thread(data: dict):
     """Triggered by: match.created"""
     from app.backend.core.database import get_async_session
-    from app.backend.models.chat_thread import ChatThread
+    from app.backend.models.chat import ChatThread
     from sqlalchemy import select
     import uuid
     async with get_async_session() as session:
@@ -287,8 +318,7 @@ async def handle_payment_notification(data: dict):
 
 async def handle_sms_emergency_contact(data: dict):
     """Triggered by: safety.sos, safety.checkin_missed"""
-    from app.backend.services.sms_service import SMSService
-    sms = SMSService()
+    from app.backend.services.sms_service import send_sos_sms
     phone = data.get("emergency_contact_phone")
     name = data.get("emergency_contact_name", "")
     loc = ""
@@ -301,7 +331,13 @@ async def handle_sms_emergency_contact(data: dict):
         "Please check on them immediately."
     )
     if phone:
-        await sms.send(phone, message)
+        await send_sos_sms(
+            phone,
+            data.get("user_name", "A user"),
+            data.get("latitude"),
+            data.get("longitude"),
+            data.get("note", ""),
+        )
         logger.warning("emergency_sms_sent",
                        contact_phone=phone[:4] + "****",
                        event_type=event_type)

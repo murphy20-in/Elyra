@@ -28,43 +28,51 @@ class MatchingService:
 
     @staticmethod
     def _compute_match_score(
-        user_prefs: UserPreference,
-        user_profile: PublicProfile,
+        user_prefs: UserPreference | None,
+        user_profile: PublicProfile | None,
         candidate_profile: PublicProfile,
         embedding_similarity: float,
     ) -> float:
+        preferred_intents = (user_prefs.preferred_intents if user_prefs else None) or []
         intent_score = 0.0
-        preferred_intents = user_prefs.preferred_intents or []
         if candidate_profile.intent in preferred_intents:
             intent_score = 1.0
         elif preferred_intents:
             intent_score = 0.5
 
         distance_score = 0.0
-        if user_profile.latitude and user_profile.longitude and candidate_profile.latitude and candidate_profile.longitude:
+        if (
+            user_profile
+            and user_profile.latitude is not None
+            and user_profile.longitude is not None
+            and candidate_profile.latitude is not None
+            and candidate_profile.longitude is not None
+        ):
             distance = MatchingService._haversine_km(
                 user_profile.latitude,
                 user_profile.longitude,
                 candidate_profile.latitude,
                 candidate_profile.longitude,
             )
-            max_dist = user_prefs.max_distance_km or 50
+            max_dist = (user_prefs.max_distance_km if user_prefs else None) or 50
             if distance <= 5:
                 distance_score = 1.0
             elif distance <= max_dist:
                 distance_score = 1.0 - (distance - 5) / (max_dist - 5)
 
         preference_score = 0.0
-        pref_genders = user_prefs.preferred_genders or []
+        pref_genders = (user_prefs.preferred_genders if user_prefs else None) or []
         if candidate_profile.gender_identity in pref_genders or not pref_genders:
             preference_score += 0.5
 
-        pref_orientations = user_prefs.preferred_orientations or []
+        pref_orientations = (
+            user_prefs.preferred_orientations if user_prefs else None
+        ) or []
         if candidate_profile.sexual_orientation in pref_orientations or not pref_orientations:
             preference_score += 0.5
 
-        age_min = user_prefs.age_min or 18
-        age_max = user_prefs.age_max or 50
+        age_min = (user_prefs.age_min if user_prefs else None) or 18
+        age_max = (user_prefs.age_max if user_prefs else None) or 50
         if age_min <= candidate_profile.age <= age_max:
             preference_score = preference_score * 0.15 / 0.5
 
@@ -143,14 +151,14 @@ class MatchingService:
                 .where(PublicProfile.is_visible.is_(True))
                 .limit(200)
             )
+            result = result.scalars().all()
 
         candidates = []
-        for row in result.fetchall():
+        for row in result:
             if isinstance(row, PublicProfile):
                 candidate = row
                 similarity = 0.5
             else:
-                from app.backend.models.profile import PublicProfile
                 candidate = PublicProfile(
                     id=row[2],
                     user_id=row[0],
@@ -192,10 +200,12 @@ class MatchingService:
                 "display_name": candidate.display_name,
                 "age": candidate.age,
                 "gender_identity": candidate.gender_identity,
+                "sexual_orientation": candidate.sexual_orientation or "",
                 "bio": candidate.bio,
                 "city": candidate.city,
                 "intent": candidate.intent,
                 "profile_photo_url": candidate.profile_photo_url,
+                "photos": candidate.photos or [],
                 "compatibility_score": score,
                 "distance_km": distance,
             })
@@ -206,13 +216,13 @@ class MatchingService:
         start = (page - 1) * per_page
         end = start + per_page
         paginated = candidates[start:end]
-        total_pages = (total + per_page - 1) // per_page
 
         return {
             "candidates": paginated,
             "page": page,
             "per_page": per_page,
-            "total_pages": total_pages,
+            "total": total,
+            "has_more": end < total,
         }
 
     async def like_user(
@@ -246,13 +256,20 @@ class MatchingService:
                 existing_match.matched_at = datetime.now(timezone.utc)
                 existing_match.match_score = 1.0
 
-                thread = ChatThread(
-                    match_id=existing_match.id,
-                    participant_1=user1_id,
-                    participant_2=user2_id,
-                    is_active=True,
+                # Only create the thread once per match (unique constraint)
+                existing_thread = await self.db.execute(
+                    select(ChatThread).where(
+                        ChatThread.match_id == existing_match.id
+                    )
                 )
-                self.db.add(thread)
+                if not existing_thread.scalar_one_or_none():
+                    thread = ChatThread(
+                        match_id=existing_match.id,
+                        participant_1=user1_id,
+                        participant_2=user2_id,
+                        is_active=True,
+                    )
+                    self.db.add(thread)
 
                 await publish_event(MATCH_CREATED, {
                     "match_id": str(existing_match.id),

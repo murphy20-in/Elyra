@@ -5,3 +5,11 @@
 .ctx/.saving
 .ctx/.commit_hook
 .ctx/.pending_verify
+
+# secrets & local env
+.env
+*.env.local
+
+# graphify cache artifacts
+graphify-out/cache/
+

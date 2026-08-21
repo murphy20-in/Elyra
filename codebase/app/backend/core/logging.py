@@ -2,7 +2,12 @@ import logging
 import sys
 
 import structlog
-from structlog.processors import CallsiteParameterAdder, JSONRenderer, TimeStamper
+from structlog.processors import (
+    CallsiteParameter,
+    CallsiteParameterAdder,
+    JSONRenderer,
+    TimeStamper,
+)
 
 from app.backend.core.config import settings
 
@@ -34,9 +39,9 @@ def configure_logging() -> None:
         TimeStamper(fmt="iso", utc=True),
         CallsiteParameterAdder(
             {
-                CallsiteParameterAdder.PARAM_FILENAME: "file",
-                CallsiteParameterAdder.PARAM_FUNC_NAME: "function",
-                CallsiteParameterAdder.PARAM_LINENO: "line",
+                CallsiteParameter.FILENAME: "file",
+                CallsiteParameter.FUNC_NAME: "function",
+                CallsiteParameter.LINENO: "line",
             }
         ),
         _mask_pii_processor,
@@ -49,7 +54,6 @@ def configure_logging() -> None:
             structlog.dev.ConsoleRenderer(
                 colors=True,
                 pad_level=2,
-                timestamp_format="%H:%M:%S",
             )
         )
 

@@ -29,8 +29,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY --from=deps /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
 COPY --from=deps /usr/local/bin /usr/local/bin
 
-# Copy application code
-COPY . .
+# Copy application code into the package layout expected by
+# `uvicorn app.backend.main:app`. Placing it under /app/app/backend (instead of
+# /app root) prevents the local `websocket/` directory from shadowing the
+# installed `websocket-client` package, which breaks python-engineio.
+COPY . /app/app/backend/
+
+RUN find /app/app/backend -name '__pycache__' -type d -exec rm -rf {} + \
+    && rm -rf /app/app/backend/.mypy_cache /app/app/backend/.ruff_cache
 
 # Non-root user (security hardening)
 RUN adduser --disabled-password --gecos '' --uid 1001 appuser \

@@ -39,7 +39,7 @@ class ReportResponse(BaseModel):
 
 
 class BlockCreate(BaseModel):
-    user_id_to_block: UUID
+    blocked_user_id: UUID
 
 
 class BlockResponse(BaseModel):
