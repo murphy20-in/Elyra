@@ -50,10 +50,10 @@ export default function Home() {
               Get Started
             </Link>
             <Link
-              href="/about"
+              href="/auth/login"
               className="px-8 py-3 border-2 border-gray-300 text-gray-700 rounded-full font-medium hover:border-primary-600 hover:text-primary-600 transition-colors"
             >
-              Learn More
+              Sign In
             </Link>
           </div>
         </motion.div>

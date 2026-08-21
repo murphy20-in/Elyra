@@ -10,11 +10,14 @@ RUN npm ci --frozen-lockfile
 # Copy source and build
 COPY . .
 
-# Needed by next-pwa and Sentry build plugins
+# Needed by next-pwa and Sentry build plugins.
+# BACKEND_INTERNAL_URL is baked into the rewrites manifest at build time.
 ENV NEXT_TELEMETRY_DISABLED=1
 ARG NEXT_PUBLIC_API_URL
 ARG NEXT_PUBLIC_WS_URL
 ARG NEXT_PUBLIC_SENTRY_DSN
+ARG BACKEND_INTERNAL_URL=http://backend:8000
+ENV BACKEND_INTERNAL_URL=$BACKEND_INTERNAL_URL
 
 RUN npm run build
 
