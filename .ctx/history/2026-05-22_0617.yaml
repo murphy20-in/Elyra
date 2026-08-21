@@ -1,0 +1,15 @@
+project_id: Elyra-main
+project_name: Elyra-main
+saved_at: 2026-05-22 06:17:09.719363+00:00
+session_number: 1
+token_count: 26
+context:
+  task: ''
+  active_files:
+  - CLAUDE.md
+  - AGENTS.md
+  - PrimaryPrompt.md
+  known_issues: []
+  notes: []
+  git_summary: ''
+  shell_cmds: []

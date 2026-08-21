@@ -1,0 +1,7 @@
+# ctxpack
+.ctx/session.yaml
+.ctx/.session_notes
+.ctx/.session_start
+.ctx/.saving
+.ctx/.commit_hook
+.ctx/.pending_verify

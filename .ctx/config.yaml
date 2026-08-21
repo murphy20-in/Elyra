@@ -1,0 +1,11 @@
+token_budget:
+  reserved: 800
+  warn_at: 700
+  hard_limit: 900
+  model: claude-sonnet-4-6
+session:
+  auto_confirm: false
+  verify_timeout_seconds: 300
+  history_keep_days: 30
+watcher:
+  idle_minutes: 30

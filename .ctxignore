@@ -1,0 +1,5 @@
+# ctxpack ignore patterns
+*.pyc
+__pycache__/
+.venv/
+node_modules/

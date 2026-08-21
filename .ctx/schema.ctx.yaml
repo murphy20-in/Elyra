@@ -1,0 +1,10 @@
+project:
+  name: Elyra-main
+  domain: unknown
+  lang:
+  - unknown
+constraints:
+  never: []
+  always: []
+active_context:
+  task: ''

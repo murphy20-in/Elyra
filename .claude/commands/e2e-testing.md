@@ -1,0 +1,1 @@
+/home/kaarthikeya/Elyra-main/skills/FRONTEND DEV/e2e-testing/SKILL.md

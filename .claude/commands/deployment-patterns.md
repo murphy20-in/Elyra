@@ -1,0 +1,1 @@
+/home/kaarthikeya/Elyra-main/skills/FRONTEND DEV/deployment-patterns/SKILL.md

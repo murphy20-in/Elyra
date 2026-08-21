@@ -8,9 +8,29 @@
       name="description"
       content="Investor-grade frontend POC for Elyra, the privacy-first, AI-enabled connection platform for India's LGBTQIA+ community."
     />
+    <meta name="theme-color" content="#06080d" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Elyra — Trust OS for Identity-Sensitive Connection" />
+    <meta
+      property="og:description"
+      content="Dual-identity privacy, explainable matching, AI moderation, and offline Safe Date workflows — one premium connection platform, India-first."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffc56e'/%3E%3Cstop offset='1' stop-color='%23ff6f8e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Georgia,serif' font-size='36' font-weight='700' fill='%23160d0d'%3EE%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"
+    />
     <link rel="stylesheet" href="ultimate.css" />
   </head>
   <body>
+    <a class="skip-link" href="#top">Skip to content</a>
+    <div class="scroll-progress" aria-hidden="true"><i id="scrollProgressBar"></i></div>
     <div class="noise" aria-hidden="true"></div>
     <div class="orb orb-coral" aria-hidden="true"></div>
     <div class="orb orb-teal" aria-hidden="true"></div>
@@ -35,8 +55,30 @@
         <a href="#scale">Scale</a>
       </nav>
 
-      <button class="nav-cta" type="button" data-open-auth>Investor sign-in</button>
+      <div class="nav-end">
+        <button class="nav-cta" type="button" data-open-auth>Investor sign-in</button>
+        <button
+          class="nav-toggle"
+          type="button"
+          id="navToggle"
+          aria-expanded="false"
+          aria-controls="mobileNav"
+          aria-label="Open navigation menu"
+        >
+          <i></i><i></i>
+        </button>
+      </div>
     </header>
+
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation" hidden>
+      <a href="#problem">Problem</a>
+      <a href="#product">Product</a>
+      <a href="#demo">Demo</a>
+      <a href="#trust">Trust</a>
+      <a href="#business">Business</a>
+      <a href="#scale">Scale</a>
+      <button class="primary-action full" type="button" data-open-auth>Investor sign-in</button>
+    </nav>
 
     <main id="top">
       <!-- ========== HERO ========== -->
@@ -46,7 +88,7 @@
             <span class="chip-dot"></span>
             <span>Privacy-first LGBTQIA+ connections · India-first</span>
           </div>
-          <h1>When identity is sensitive, trust becomes the product.</h1>
+          <h1>When identity is sensitive, <em class="accent">trust</em> becomes the product.</h1>
           <p class="lede">
             Elyra turns dual-identity privacy, intent-based matching, AI moderation,
             and offline Safe Date workflows into one premium connection experience —
@@ -65,11 +107,11 @@
 
           <div class="proof-row" aria-label="Product proof points">
             <div>
-              <strong data-counter="256" data-suffix="-bit">0</strong>
+              <strong data-counter="256" data-suffix="-bit">256-bit</strong>
               <span>AES private layer</span>
             </div>
             <div>
-              <strong data-counter="384" data-suffix="d">0</strong>
+              <strong data-counter="384" data-suffix="d">384d</strong>
               <span>intent embeddings</span>
             </div>
             <div>
@@ -77,13 +119,13 @@
               <span>premium ARPU path</span>
             </div>
             <div>
-              <strong data-counter="91" data-suffix="">0</strong>
+              <strong data-counter="91" data-suffix="">91</strong>
               <span>trust score, live</span>
             </div>
           </div>
         </div>
 
-        <div class="hero-stage reveal delay-1" aria-hidden="false">
+        <div class="hero-stage reveal delay-1">
           <div class="phone">
             <div class="phone-bezel"></div>
             <div class="phone-screen">
@@ -144,7 +186,7 @@
       <section class="shell problem-section" id="problem">
         <div class="section-heading reveal">
           <span class="kicker">01 · The problem</span>
-          <h2>Dating products assume everyone can be public.</h2>
+          <h2>Dating products assume everyone can be <em class="accent">public</em>.</h2>
           <p class="lede">
             For most LGBTQIA+ users in India, disclosure, harassment, fake profiles, and
             unsafe offline meetings aren't edge cases — they're core adoption barriers
@@ -152,7 +194,7 @@
           </p>
         </div>
 
-        <div class="problem-grid reveal delay-1">
+        <div class="problem-grid reveal delay-1" data-stagger>
           <article class="problem-card">
             <span class="big-stat">73<small>%</small></span>
             <h3>fear public exposure</h3>
@@ -184,7 +226,7 @@
       <section class="shell solution-section" id="product">
         <div class="section-heading reveal">
           <span class="kicker">02 · The solution</span>
-          <h2>Elyra is the trust operating system for modern connection.</h2>
+          <h2>Elyra is the trust operating system for <em class="accent">modern connection</em>.</h2>
           <p class="lede">
             Pehchaan Layer dual identity, explainable matching, AI moderation,
             risk scoring, Safe Date sessions, and premium privacy controls — all
@@ -192,7 +234,7 @@
           </p>
         </div>
 
-        <div class="feature-strip reveal delay-1">
+        <div class="feature-strip reveal delay-1" data-stagger>
           <article>
             <span class="feature-num">01</span>
             <h3>Dual identity</h3>
@@ -220,7 +262,7 @@
       <section class="shell demo-section" id="demo">
         <div class="section-heading reveal">
           <span class="kicker">03 · Interactive product demo</span>
-          <h2>The full investor flow in under 90 seconds.</h2>
+          <h2>The full investor flow in under <em class="accent">90 seconds</em>.</h2>
           <p class="lede">
             Use the rail to simulate onboarding, dual-identity reveal, match generation,
             AI moderation, and Safe Date activation — all running locally on this page.
@@ -228,45 +270,66 @@
         </div>
 
         <div class="demo-cockpit reveal delay-1">
-          <aside class="demo-rail" aria-label="Demo flow selector">
+          <aside class="demo-rail">
             <div class="rail-header">
               <span>Investor flow</span>
-              <strong id="railProgress">1 / 5</strong>
+              <strong id="railProgress" aria-live="polite">1 / 5</strong>
             </div>
-            <button class="rail-step active" type="button" data-panel="onboarding">
-              <span class="rail-num">1</span>
-              <span class="rail-label">
-                <strong>Onboarding</strong>
-                <small>Identity + intent capture</small>
-              </span>
-            </button>
-            <button class="rail-step" type="button" data-panel="identity">
-              <span class="rail-num">2</span>
-              <span class="rail-label">
-                <strong>Dual identity</strong>
-                <small>Pehchaan Layer reveal</small>
-              </span>
-            </button>
-            <button class="rail-step" type="button" data-panel="matching">
-              <span class="rail-num">3</span>
-              <span class="rail-label">
-                <strong>Matching AI</strong>
-                <small>Explainable scoring</small>
-              </span>
-            </button>
-            <button class="rail-step" type="button" data-panel="chat">
-              <span class="rail-num">4</span>
-              <span class="rail-label">
-                <strong>Moderated chat</strong>
-                <small>Visible AI decisions</small>
-              </span>
-            </button>
-            <button class="rail-step" type="button" data-panel="safe">
-              <span class="rail-num">5</span>
-              <span class="rail-label">
-                <strong>Safe Date</strong>
-                <small>Offline safety loop</small>
-              </span>
+            <div class="rail-steps" role="tablist" aria-label="Demo flow selector" aria-orientation="vertical">
+              <button
+                class="rail-step active" type="button" role="tab" id="railTab-onboarding"
+                data-panel="onboarding" aria-selected="true" aria-controls="demoPanel-onboarding"
+              >
+                <span class="rail-num">1</span>
+                <span class="rail-label">
+                  <strong>Onboarding</strong>
+                  <small>Identity + intent capture</small>
+                </span>
+              </button>
+              <button
+                class="rail-step" type="button" role="tab" id="railTab-identity"
+                data-panel="identity" aria-selected="false" aria-controls="demoPanel-identity" tabindex="-1"
+              >
+                <span class="rail-num">2</span>
+                <span class="rail-label">
+                  <strong>Dual identity</strong>
+                  <small>Pehchaan Layer reveal</small>
+                </span>
+              </button>
+              <button
+                class="rail-step" type="button" role="tab" id="railTab-matching"
+                data-panel="matching" aria-selected="false" aria-controls="demoPanel-matching" tabindex="-1"
+              >
+                <span class="rail-num">3</span>
+                <span class="rail-label">
+                  <strong>Matching AI</strong>
+                  <small>Explainable scoring</small>
+                </span>
+              </button>
+              <button
+                class="rail-step" type="button" role="tab" id="railTab-chat"
+                data-panel="chat" aria-selected="false" aria-controls="demoPanel-chat" tabindex="-1"
+              >
+                <span class="rail-num">4</span>
+                <span class="rail-label">
+                  <strong>Moderated chat</strong>
+                  <small>Visible AI decisions</small>
+                </span>
+              </button>
+              <button
+                class="rail-step" type="button" role="tab" id="railTab-safe"
+                data-panel="safe" aria-selected="false" aria-controls="demoPanel-safe" tabindex="-1"
+              >
+                <span class="rail-num">5</span>
+                <span class="rail-label">
+                  <strong>Safe Date</strong>
+                  <small>Offline safety loop</small>
+                </span>
+              </button>
+            </div>
+            <button class="rail-tour" type="button" id="railTour" aria-pressed="false">
+              <span class="tour-icon" aria-hidden="true">▶</span>
+              <span id="railTourLabel">Play 90-second tour</span>
             </button>
             <div class="rail-footer">
               <span class="dot teal"></span>
@@ -276,7 +339,10 @@
 
           <div class="demo-stage">
             <!-- ONBOARDING PANEL -->
-            <section class="demo-panel active" data-panel-view="onboarding">
+            <section
+              class="demo-panel active" data-panel-view="onboarding"
+              role="tabpanel" id="demoPanel-onboarding" aria-labelledby="railTab-onboarding" tabindex="0"
+            >
               <div class="panel-copy">
                 <span class="kicker">Step-based onboarding</span>
                 <h3>Capture identity and intent without forcing over-disclosure.</h3>
@@ -284,11 +350,17 @@
               </div>
               <div class="panel-body">
                 <article class="auth-card">
-                  <div class="tabs" role="tablist">
-                    <button class="tab active" type="button" data-auth-tab="signup">Sign up</button>
-                    <button class="tab" type="button" data-auth-tab="login">Login</button>
+                  <div class="tabs" role="tablist" aria-label="Demo authentication mode">
+                    <button
+                      class="tab active" type="button" role="tab" id="authTab-signup"
+                      data-auth-tab="signup" aria-selected="true" aria-controls="signupForm"
+                    >Sign up</button>
+                    <button
+                      class="tab" type="button" role="tab" id="authTab-login"
+                      data-auth-tab="login" aria-selected="false" aria-controls="loginForm" tabindex="-1"
+                    >Login</button>
                   </div>
-                  <form class="auth-form active" id="signupForm">
+                  <form class="auth-form active" id="signupForm" aria-labelledby="authTab-signup">
                     <div class="form-grid">
                       <label>
                         Display name
@@ -311,7 +383,7 @@
                       Continue to identity reveal
                     </button>
                   </form>
-                  <form class="auth-form" id="loginForm">
+                  <form class="auth-form" id="loginForm" aria-labelledby="authTab-login" hidden>
                     <div class="form-grid">
                       <label>
                         Email
@@ -363,7 +435,10 @@
             </section>
 
             <!-- IDENTITY PANEL -->
-            <section class="demo-panel" data-panel-view="identity">
+            <section
+              class="demo-panel" data-panel-view="identity"
+              role="tabpanel" id="demoPanel-identity" aria-labelledby="railTab-identity" tabindex="0" hidden
+            >
               <div class="panel-copy">
                 <span class="kicker">Pehchaan Layer · Dual identity</span>
                 <h3>Public and private identity are separate product surfaces.</h3>
@@ -402,13 +477,16 @@
                     <p><span>ID document</span><strong data-secret="Verified · not shared">Encrypted field</strong></p>
                   </div>
                   <button class="primary-action full" type="button" id="unlockProfile">Simulate consented reveal</button>
-                  <small id="revealAudit">Awaiting consent. Reveal actions are audit-logged and revocable.</small>
+                  <small id="revealAudit" aria-live="polite">Awaiting consent. Reveal actions are audit-logged and revocable.</small>
                 </article>
               </div>
             </section>
 
             <!-- MATCHING PANEL -->
-            <section class="demo-panel" data-panel-view="matching">
+            <section
+              class="demo-panel" data-panel-view="matching"
+              role="tabpanel" id="demoPanel-matching" aria-labelledby="railTab-matching" tabindex="0" hidden
+            >
               <div class="panel-copy">
                 <span class="kicker">Explainable matching engine</span>
                 <h3>Generate intent cards with transparent AI reasoning.</h3>
@@ -436,7 +514,7 @@
                     <button class="secondary-action" type="button" id="passMatch">Pass respectfully</button>
                     <button class="primary-action" type="button" id="likeMatch">Connect with intent</button>
                   </div>
-                  <div class="match-result" id="matchResult">
+                  <div class="match-result" id="matchResult" aria-live="polite">
                     Candidate ready · no swipe queue, only explainable intent cards.
                   </div>
                 </article>
@@ -469,7 +547,10 @@
             </section>
 
             <!-- CHAT PANEL -->
-            <section class="demo-panel" data-panel-view="chat">
+            <section
+              class="demo-panel" data-panel-view="chat"
+              role="tabpanel" id="demoPanel-chat" aria-labelledby="railTab-chat" tabindex="0" hidden
+            >
               <div class="panel-copy">
                 <span class="kicker">Privacy-first chat · visible AI</span>
                 <h3>Moderation decisions are visible, understandable, and reversible.</h3>
@@ -488,7 +569,7 @@
                     <em>Anonymous mode available</em>
                   </header>
 
-                  <div class="decision-banner">
+                  <div class="decision-banner" aria-live="polite">
                     <strong>AI moderation decision</strong>
                     <span id="moderationDecision">No risk detected in the latest message.</span>
                   </div>
@@ -537,7 +618,10 @@
             </section>
 
             <!-- SAFE DATE PANEL -->
-            <section class="demo-panel" data-panel-view="safe">
+            <section
+              class="demo-panel" data-panel-view="safe"
+              role="tabpanel" id="demoPanel-safe" aria-labelledby="railTab-safe" tabindex="0" hidden
+            >
               <div class="panel-copy">
                 <span class="kicker">Safe Date · offline safety</span>
                 <h3>Emergency contact, check-ins, and SOS as a first-class flow.</h3>
@@ -564,7 +648,7 @@
 
                 <article class="safe-map-card">
                   <div class="map-header">
-                    <div>
+                    <div aria-live="polite">
                       <span class="kicker">Session status</span>
                       <strong id="safeStatus">Idle</strong>
                     </div>
@@ -598,14 +682,14 @@
       <section class="shell trust-section" id="trust">
         <div class="section-heading reveal">
           <span class="kicker">04 · Differentiation</span>
-          <h2>Trust and privacy are measurable, explainable, and visible.</h2>
+          <h2>Trust and privacy are measurable, explainable, and <em class="accent">visible</em>.</h2>
           <p class="lede">
             Elyra surfaces risk reasoning before users decide to match, chat, reveal,
             meet, block, report, or upgrade — turning safety into a UX moat.
           </p>
         </div>
 
-        <div class="trust-grid reveal delay-1">
+        <div class="trust-grid reveal delay-1" data-stagger>
           <article class="trust-dashboard">
             <div class="trust-ring" id="trustRing" style="--trust: 0">
               <span id="trustValue">0</span>
@@ -660,7 +744,7 @@
       <section class="shell business-section" id="business">
         <div class="section-heading reveal">
           <span class="kicker">05 · Monetization</span>
-          <h2>Privacy creates a premium willingness-to-pay loop.</h2>
+          <h2>Privacy creates a premium <em class="accent">willingness-to-pay</em> loop.</h2>
           <p class="lede">
             Paid tiers align with user intensity: unlimited likes, advanced filters,
             priority matching, read receipts, boost, incognito, and priority support.
@@ -672,10 +756,10 @@
           <button type="button" data-billing-mode="yearly">Yearly · save 17%</button>
         </div>
 
-        <div class="pricing-grid reveal delay-1">
+        <div class="pricing-grid reveal delay-1" data-stagger>
           <article class="price-card">
             <span class="plan-tag">Free</span>
-            <h3 data-plan-price="free">₹0</h3>
+            <h3 data-plan-price="free"><span class="amount">₹0</span></h3>
             <p>Basic matching, 5 likes/day, trust basics, ads.</p>
             <ul class="plan-list">
               <li>5 likes per day</li>
@@ -687,7 +771,7 @@
 
           <article class="price-card featured">
             <span class="plan-tag gold">Plus · most popular</span>
-            <h3 data-plan-price="plus">₹499</h3>
+            <h3 data-plan-price="plus"><span class="amount">₹499</span><small class="per">/mo</small></h3>
             <p>Unlimited likes, see who liked you, no ads.</p>
             <ul class="plan-list">
               <li>Unlimited likes</li>
@@ -700,7 +784,7 @@
 
           <article class="price-card">
             <span class="plan-tag">Premium</span>
-            <h3 data-plan-price="premium">₹999</h3>
+            <h3 data-plan-price="premium"><span class="amount">₹999</span><small class="per">/mo</small></h3>
             <p>Advanced filters, priority matching, read receipts.</p>
             <ul class="plan-list">
               <li>Everything in Plus</li>
@@ -713,7 +797,7 @@
 
           <article class="price-card">
             <span class="plan-tag">Elite</span>
-            <h3 data-plan-price="elite">₹1999</h3>
+            <h3 data-plan-price="elite"><span class="amount">₹1,999</span><small class="per">/mo</small></h3>
             <p>Boost, incognito, premium privacy, priority support.</p>
             <ul class="plan-list">
               <li>Everything in Premium</li>
@@ -748,7 +832,7 @@
       <section class="shell scale-section" id="scale">
         <div class="section-heading reveal">
           <span class="kicker">06 · Scale</span>
-          <h2>Built India-first. Designed for global expansion.</h2>
+          <h2>Built India-first. Designed for <em class="accent">global expansion</em>.</h2>
           <p class="lede">
             Web v1 ships on Next.js, mobile via Expo, AI services on Python, infra on
             Kubernetes — with observability, rate limits, backups, and multi-region growth.
@@ -810,7 +894,7 @@
         <div class="cta-card reveal">
           <div class="cta-copy">
             <span class="kicker">07 · The ask</span>
-            <h2>Trust is the next dating moat. Elyra is building it.</h2>
+            <h2>Trust is the next dating moat. Elyra is <em class="accent">building it</em>.</h2>
             <p class="lede">
               We're raising a seed round to launch India-first, build the AI safety stack,
               and ship the mobile app. Investors get a privacy-defensible platform aimed at
@@ -845,11 +929,27 @@
         </div>
 
         <footer class="footer">
-          <div>
-            <span class="brand-sigil small">E</span>
-            <span>Elyra · Pehchaan Layer · 2026</span>
+          <div class="footer-top">
+            <div class="footer-brand">
+              <span class="brand-sigil small">E</span>
+              <div>
+                <strong>Elyra</strong>
+                <small>The Pehchaan Layer · trust OS for identity-sensitive connection</small>
+              </div>
+            </div>
+            <nav class="footer-links" aria-label="Footer navigation">
+              <a href="#problem">Problem</a>
+              <a href="#product">Product</a>
+              <a href="#demo">Demo</a>
+              <a href="#trust">Trust</a>
+              <a href="#business">Business</a>
+              <a href="#scale">Scale</a>
+            </nav>
           </div>
-          <span>UI-only POC · all interactions are local simulations</span>
+          <div class="footer-bottom">
+            <span>© 2026 Elyra · Made with intent in India</span>
+            <span>UI-only POC · every interaction on this page is a local simulation</span>
+          </div>
         </footer>
       </section>
     </main>
